@@ -1,9 +1,11 @@
-import React from "react";
-import Button from "../../components/Button";
+import React, { useContext } from "react";
+import Button from "../../uikits/Button";
 import ImageCard from "../../components/ImageCard";
 import Input from "../../components/Input";
+import ApiContext from "../../contexts/ApiContext";
 
 const Home: React.FC = () => {
+  const { handleSend, isValidate } = useContext(ApiContext);
   return (
     <section className="py-20">
       <div className="w-2/4">
@@ -16,11 +18,11 @@ const Home: React.FC = () => {
         </p>
       </div>
       <div className="flex justify-between">
-        <div>
+        <div className="mr-10">
           {" "}
           <ImageCard />
         </div>
-        <div>
+        <div className="mr-10">
           {" "}
           <ImageCard />
         </div>
@@ -29,13 +31,16 @@ const Home: React.FC = () => {
           <ImageCard />
         </div>
       </div>
-      <div className="flex items-center ">
+      <div className="flex items-center pt-10">
         <div className="w-3/4">
           <Input />
         </div>
         <div className="w-24 mx-4">
-          <Button title="Start test" />
+          <Button onClick={handleSend} title="Start test" />
         </div>
+      </div>
+      <div className="">
+        <p className="text-invalid">{isValidate ? "" : "url is invalid"}</p>
       </div>
     </section>
   );

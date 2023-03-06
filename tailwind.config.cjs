@@ -18,6 +18,7 @@ module.exports = {
       white: "#ffffff",
       textPlaceholder: "#858585",
       hoverColor: "#857B23",
+      invalid: "#F64747",
     },
     animation: {
       ease: "ease 0.5s ease-in-out",
