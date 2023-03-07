@@ -15,14 +15,17 @@ type stateProps = {
   }[];
   handleInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputText: string;
-  handleSend?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleSend?: (event: any) => void;
   isValidate: boolean;
+  mainurl: string;
 };
 
+//States
 const initialVal = {
   data: [],
   inputText: "",
   isValidate: false,
+  mainurl: "",
 };
 
 const ApiContext = createContext<stateProps>(initialVal);
@@ -31,17 +34,20 @@ export const ApiProvider = ({ children }: ChildrenProp) => {
   const [data, setData] = useState<stateProps["data"]>(initialVal.data);
   const [inputText, setInputText] = useState(initialVal.inputText);
   const isValidate = !inputText || validateUrl(inputText);
+  const mainurl = "https://" + inputText;
+
+  //Handlers
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
-    console.log(inputText);
   };
   const handleSend = () => {
     if (inputText.trim() && isValidate === true) {
       try {
         axios
-          .get<typeof data>(API_URL({ url: "https://" + inputText }))
+          .get<typeof data>(API_URL({ url: mainurl }))
           .then((response) => setData(response.data));
         console.log(data);
+        setInputText(mainurl);
       } catch (error) {
         console.error(error);
       }
@@ -49,7 +55,7 @@ export const ApiProvider = ({ children }: ChildrenProp) => {
   };
   return (
     <ApiContext.Provider
-      value={{ data, handleInput, handleSend, inputText, isValidate }}
+      value={{ data, handleInput, handleSend, inputText, mainurl, isValidate }}
     >
       {children}
     </ApiContext.Provider>
