@@ -6,8 +6,6 @@ const Input = () => {
   const { inputText, handleInput, handleSend, isValidate } =
     useContext(ApiContext);
 
-  console.log(inputText, isValidate);
-
   const onKeyPress = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter") {
       handleSend?.(event);

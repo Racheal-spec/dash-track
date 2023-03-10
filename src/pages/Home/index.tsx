@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       <div className="">
-        <p className="text-invalid">{isValidate ? "" : "url is invalid"}</p>
+        <p className="text-invalid">{isValidate ? "" : "Enter a valid URL"}</p>
       </div>
     </section>
   );
