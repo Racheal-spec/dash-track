@@ -13,6 +13,7 @@ module.exports = {
       textHeaderDark: "#1E1E1E",
       black: "#000000",
       greylight: "#D6D6D6",
+      smallcardColor: "#D5DECF",
       greenDark: "#2A6F39",
       urlColor: "#323232",
       secondary: "#9C912C",

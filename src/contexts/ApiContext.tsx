@@ -9,12 +9,48 @@ import { checkUrl } from "../utils/checkUrl";
 interface ChildrenProp {
   children: ReactNode;
 }
+
 type stateProps = {
   data: {
     id: string;
     loadingExperience: object;
-    lighthouseResult: object;
-  }[];
+    lighthouseResult: {
+      environment: {
+        hostUserAgent: string;
+      };
+      audits: {
+        ""?: {
+          description: string;
+          id: string;
+          displayValue: string;
+        };
+        metrics: {
+          details: {
+            items: {
+              firstContentfulPaint: number;
+              firstMeaningfulPaint: number;
+              largestContentfulPaint: number;
+              speedIndex: number;
+              totalBlockingTime: number;
+              totalCumulativeLayoutShift: number;
+              interactive: number;
+            }[];
+          };
+        };
+      };
+      categories: {
+        performance: {
+          title: string;
+          score: number;
+          auditRefs: {
+            acronym: string;
+            weight: number;
+          }[];
+        };
+      };
+    };
+    analysisUTCTimestamp: string;
+  };
   handleInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputText: string;
   handleSend?: (event: any) => void;
@@ -25,7 +61,46 @@ type stateProps = {
 
 //States
 const initialVal = {
-  data: [],
+  data: {
+    id: "",
+    loadingExperience: {},
+    lighthouseResult: {
+      environment: {
+        hostUserAgent: "",
+      },
+      audits: {
+        "": {
+          description: "",
+          id: "",
+          displayValue: "",
+        },
+
+        metrics: {
+          details: {
+            items: [
+              {
+                firstContentfulPaint: 0,
+                firstMeaningfulPaint: 0,
+                largestContentfulPaint: 0,
+                speedIndex: 0,
+                totalBlockingTime: 0,
+                totalCumulativeLayoutShift: 0,
+                interactive: 0,
+              },
+            ],
+          },
+        },
+      },
+      categories: {
+        performance: {
+          title: "",
+          score: 0,
+          auditRefs: [{ acronym: "", weight: 0 }],
+        },
+      },
+    },
+    analysisUTCTimestamp: "",
+  },
   inputText: "",
   isValidate: false,
   mainurl: "",
@@ -49,6 +124,7 @@ export const ApiProvider = ({ children }: ChildrenProp) => {
 
   const handleSend = () => {
     if (inputText.trim() && isValidate === true) {
+      setProgress(0);
       try {
         axios
           .get<typeof data>(API_URL({ url: mainurl }), {

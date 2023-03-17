@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <section className="">
       <Navbar />
-      <div className="bg-lightgreenbg px-10">
+      <div className="bg-lightgreenbg px-28">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/report" element={<Report />} />

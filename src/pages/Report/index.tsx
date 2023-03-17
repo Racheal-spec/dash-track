@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import BorderCard from "../../components/BorderCard";
 import ProgressBar from "../../components/ProgressBar";
 import WaitingAnimation from "../../components/WaitingAnimation";
 import ApiContext from "../../contexts/ApiContext";
@@ -10,8 +11,6 @@ const Report: React.FC = () => {
 
   const location = useLocation();
   const currentUrl = location.search.substring(5);
-
-  console.log(data);
   const style = {
     fontWeight: "bold",
     fontSize: "1.6rem",
@@ -26,7 +25,7 @@ const Report: React.FC = () => {
     <section className="py-5">
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
       <div className="py-10">
-        <div className="w-2/5 bg-lightGreen text-sm">
+        <div className="max-w-lg bg-lightGreen text-sm">
           <div className="flex flex-col m-0">
             <div className="flex">
               <div className="w-24 text-center bg-greenDark p-4 text-greylight">
@@ -34,23 +33,29 @@ const Report: React.FC = () => {
               </div>
               <div className="p-4 text-urlColor">{currentUrl}</div>
             </div>
-            <hr className="w-96 mx-auto text-lineColor" />
+            <hr className="min-w-full mx-auto text-lineColor" />
           </div>
           <div className="flex flex-col">
             <div className="flex">
               <div className="w-24 text-center bg-greenDark p-4 text-greylight">
                 Date/Time
               </div>
-              <div className="p-4 text-urlColor">{currentUrl}</div>
+              <div className="p-4 text-urlColor">
+                {data ? data.analysisUTCTimestamp : "---"}
+              </div>
             </div>
-            <hr className="w-96 mx-auto text-lineColor" />
+            <hr className="min-w-full mx-auto text-lineColor" />
           </div>
 
           <div className="flex">
-            <div className="w-24 bg-greenDark text-center p-4 text-greylight">
+            <div className="p-8 bg-greenDark text-center text-greylight">
               From
             </div>
-            <div className="p-4 text-urlColor">{currentUrl}</div>
+            <div className="p-4 text-urlColor">
+              {data.lighthouseResult
+                ? data.lighthouseResult.environment.hostUserAgent
+                : "---"}
+            </div>
           </div>
         </div>
       </div>
@@ -72,7 +77,8 @@ const Report: React.FC = () => {
           <ProgressBar percent={`${progress}%`} />
         )}
       </div>
-      <div>{/**=================Show Data Section===================== */}</div>
+
+      {/**=================Show Data Section===================== */}
     </section>
   );
 };
