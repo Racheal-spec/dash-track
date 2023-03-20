@@ -7,10 +7,12 @@ import ApiContext from "../../contexts/ApiContext";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import metricsCalc from "../../utils/metricsCalc";
+import Calc from "../../utils/timeFunction";
 
 type auditProp = {
   title: string;
   description: string;
+  displayValue: string;
 }[];
 
 const ResultPage: React.FC = () => {
@@ -44,6 +46,7 @@ const ResultPage: React.FC = () => {
     }, {});
 
   console.log(newAuditsObject);
+  let perfScore = data.lighthouseResult.categories.performance.score;
 
   return (
     <>
@@ -57,12 +60,10 @@ const ResultPage: React.FC = () => {
         <div className="flex justify-between items-center divide-x-2 text-lineColor py-10">
           <div className="mx-8">
             <CircularProgressbar
-              value={data.lighthouseResult.categories.performance.score}
               maxValue={1}
-              text={`${
-                data.lighthouseResult.categories.performance.score * 100
-              }%`}
+              value={perfScore}
               background={true}
+              text={`${Math.round(perfScore * 100)}%`}
               backgroundPadding={6}
               styles={buildStyles({
                 textSize: "12px",
@@ -74,10 +75,10 @@ const ResultPage: React.FC = () => {
               })}
             />
           </div>
-          <div className="mx-10 bg-white max-w-xl">
+          <div className="mx-10 bg-white max-w-xl max-h-96 overflow-hidden">
             <img
-              src={wine}
-              className="p-8 shadow-textPlaceholder shadow-xl"
+              src={data.lighthouseResult.fullPageScreenshot.screenshot.data}
+              className="p-8 shadow-textPlaceholder shadow-xl "
               alt="dashtrack image result"
             />
           </div>
@@ -227,14 +228,35 @@ const ResultPage: React.FC = () => {
       <section>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {newAuditsObject?.map((list) => (
-            <>
-              <div className="py-2">
-                <BorderCard
-                  auditTitle={list.title}
-                  description={list.description}
-                />
-              </div>
-            </>
+            <div className="py-2">
+              <BorderCard
+                auditTitle={list.title}
+                description={list.description}
+                timing={Calc(list.displayValue, list.title)}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+      {/**=================Image filmstrip section============== */}
+      <section className="my-10 border border-r-greenDark">
+        <div className="bg-smallcardColor py-5 px-2 mb-5">
+          <h3 className="font-bold text-xl text-lineColor">
+            Visual Loading Screen
+          </h3>
+          <p className="py-2">
+            {auditObjects["screenshot-thumbnails"].description}
+          </p>
+        </div>
+        <div className="grid gap-2 bg-lineColor p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
+          {auditObjects["screenshot-thumbnails"].details.items.map((item) => (
+            <div className="border border-inputbg p-1 ">
+              <img
+                className="w-44"
+                src={item.data}
+                alt="screenshot thumbnails"
+              />
+            </div>
           ))}
         </div>
       </section>

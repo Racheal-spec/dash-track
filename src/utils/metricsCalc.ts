@@ -1,5 +1,5 @@
 import React from "react";
-const metricsCalc = (val: number) => {
+export const metricsCalc = (val: number) => {
   let secondsVal = val * 0.001;
   if (val < 1) {
     return Number(val.toString().substring(0, 4)) + "ms";

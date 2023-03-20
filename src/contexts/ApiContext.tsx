@@ -18,11 +18,26 @@ type stateProps = {
       environment: {
         hostUserAgent: string;
       };
+      fullPageScreenshot: {
+        screenshot: {
+          data: string;
+        };
+      };
       audits: {
-        ""?: {
+        ["cumulative-layout-shift,first-contentful-paint,total-blocking-time,speed-index,interactive,largest-contentful-paint"]: {
           description: string;
           id: string;
           displayValue: string;
+        };
+        ["screenshot-thumbnails"]: {
+          description: string;
+          details: {
+            items: {
+              data: string;
+              timing: number;
+              timestamp: number;
+            }[];
+          };
         };
         metrics: {
           details: {
@@ -68,13 +83,30 @@ const initialVal = {
       environment: {
         hostUserAgent: "",
       },
-      audits: {
-        "": {
-          description: "",
-          id: "",
-          displayValue: "",
+      fullPageScreenshot: {
+        screenshot: {
+          data: "",
         },
-
+      },
+      audits: {
+        ["cumulative-layout-shift,first-contentful-paint,total-blocking-time,speed-index,interactive,largest-contentful-paint"]:
+          {
+            description: "",
+            id: "",
+            displayValue: "",
+          },
+        ["screenshot-thumbnails"]: {
+          description: "",
+          details: {
+            items: [
+              {
+                data: "",
+                timing: 0,
+                timestamp: 0,
+              },
+            ],
+          },
+        },
         metrics: {
           details: {
             items: [

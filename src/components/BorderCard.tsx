@@ -1,11 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 type auditProp = {
   auditTitle: string;
   description: string;
+  timing: string | ReactNode;
 };
 
-const BorderCard: React.FC<auditProp> = ({ auditTitle, description }) => {
+const BorderCard: React.FC<auditProp> = ({
+  auditTitle,
+  description,
+  timing,
+}) => {
   let learnLink = description.split("[")[1].split("(")[1];
 
   return (
@@ -15,7 +20,7 @@ const BorderCard: React.FC<auditProp> = ({ auditTitle, description }) => {
           <p className="text-sm text-textHeaderDark font-bold">{auditTitle}</p>
         </div>
         <div className="py-1">
-          <p className="text-invalid text-xl font-bold">2.0s</p>
+          <p className="text-invalid text-xl font-bold">{timing}</p>
         </div>
         <div>
           <p className="text-[11px] text-urlColor font-semibold">
