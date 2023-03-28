@@ -4,7 +4,7 @@ import logoDashTrack from "../../assets/logoDashTrack.png";
 const Navbar: React.FC = () => {
   return (
     <>
-      <section className="bg-lightgreenbg shadow-sm sticky px-10">
+      <section className="shadow-sm sticky px-10">
         <nav className="py-5">
           <ul className="flex justify-between">
             <li>

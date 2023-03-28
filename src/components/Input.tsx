@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
-import { API_KEY } from "../ApiRoutes";
+import React, { useContext } from "react";
 import ApiContext from "../contexts/ApiContext";
 
-const Input = () => {
+const Input: React.FC = () => {
   const { inputText, handleInput, handleSend, isValidate } =
     useContext(ApiContext);
 

@@ -20,6 +20,7 @@ module.exports = {
       inputbg: "#9BAA9E",
       lightGreen: "#9FB8A5",
       lineColor: "#778C7B",
+      offwhite: "#FDFFFD",
       white: "#ffffff",
       textPlaceholder: "#858585",
       hoverColor: "#857B23",

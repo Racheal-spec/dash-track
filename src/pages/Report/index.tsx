@@ -21,6 +21,8 @@ const Report: React.FC = () => {
     display: "none",
   };
 
+  console.log(data);
+
   return (
     <section className="py-5">
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>

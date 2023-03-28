@@ -1,78 +1,11 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 import { createContext } from "react";
 import axios, { AxiosProgressEvent } from "axios";
 import { API_URL } from "../ApiRoutes";
 import validateUrl from "../utils/validateUrl";
 import { useNavigate } from "react-router-dom";
 import { checkUrl } from "../utils/checkUrl";
-
-interface ChildrenProp {
-  children: ReactNode;
-}
-
-type stateProps = {
-  data: {
-    id: string;
-    loadingExperience: object;
-    lighthouseResult: {
-      environment: {
-        hostUserAgent: string;
-      };
-      fullPageScreenshot: {
-        screenshot: {
-          data: string;
-        };
-      };
-      audits: {
-        ["cumulative-layout-shift,first-contentful-paint,total-blocking-time,speed-index,interactive,largest-contentful-paint"]: {
-          description: string;
-          id: string;
-          displayValue: string;
-        };
-        ["screenshot-thumbnails"]: {
-          description: string;
-          details: {
-            items: {
-              data: string;
-              timing: number;
-              timestamp: number;
-            }[];
-          };
-        };
-        metrics: {
-          details: {
-            items: {
-              firstContentfulPaint: number;
-              firstMeaningfulPaint: number;
-              largestContentfulPaint: number;
-              speedIndex: number;
-              totalBlockingTime: number;
-              totalCumulativeLayoutShift: number;
-              interactive: number;
-            }[];
-          };
-        };
-      };
-      categories: {
-        performance: {
-          title: string;
-          score: number;
-          auditRefs: {
-            acronym: string;
-            weight: number;
-          }[];
-        };
-      };
-    };
-    analysisUTCTimestamp: string;
-  };
-  handleInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  inputText: string;
-  handleSend?: (event: any) => void;
-  isValidate: boolean;
-  mainurl: string;
-  progress: number;
-};
+import { ChildrenProp, stateProps } from "../Types/ContextProp";
 
 //States
 const initialVal = {
@@ -89,39 +22,8 @@ const initialVal = {
         },
       },
       audits: {
-        ["cumulative-layout-shift,first-contentful-paint,total-blocking-time,speed-index,interactive,largest-contentful-paint"]:
-          {
-            description: "",
-            id: "",
-            displayValue: "",
-          },
-        ["screenshot-thumbnails"]: {
-          description: "",
-          details: {
-            items: [
-              {
-                data: "",
-                timing: 0,
-                timestamp: 0,
-              },
-            ],
-          },
-        },
-        metrics: {
-          details: {
-            items: [
-              {
-                firstContentfulPaint: 0,
-                firstMeaningfulPaint: 0,
-                largestContentfulPaint: 0,
-                speedIndex: 0,
-                totalBlockingTime: 0,
-                totalCumulativeLayoutShift: 0,
-                interactive: 0,
-              },
-            ],
-          },
-        },
+        ["screenshot-thumbnails"]: null,
+        metrics: null,
       },
       categories: {
         performance: {

@@ -1,12 +1,7 @@
 import React, { ReactNode } from "react";
+import { auditSingleProp } from "../Types/BorderProp";
 
-type auditProp = {
-  auditTitle: string;
-  description: string;
-  timing: string | ReactNode;
-};
-
-const BorderCard: React.FC<auditProp> = ({
+const BorderCard: React.FC<auditSingleProp> = ({
   auditTitle,
   description,
   timing,

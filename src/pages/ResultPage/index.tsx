@@ -8,27 +8,20 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import metricsCalc from "../../utils/metricsCalc";
 import Calc from "../../utils/timeFunction";
-
-type auditProp = {
-  title: string;
-  description: string;
-  displayValue: string;
-}[];
+import FullResultTab from "../../components/TabsComponent/FullResultTab";
+import { TabProps } from "../../Types/TabsProp";
 
 const ResultPage: React.FC = () => {
   const { data } = useContext(ApiContext);
 
   // console.log(data);
   const auditObjects = data.lighthouseResult.audits;
-  const metricsobjects = data.lighthouseResult.audits.metrics.details.items[0];
+  const screenshotObj = data.lighthouseResult.audits["screenshot-thumbnails"];
+  const metricsobjects =
+    data.lighthouseResult.audits?.metrics?.details.items[0];
   let newKeys = Object.keys(auditObjects);
-  let newValues = Object.values(auditObjects);
+  let newEl = Object.values(auditObjects);
 
-  // let newAuditsObject = newKeys.every((key) => {
-  //   // console.log(key);
-  //   // return auditObjects.hasOwnProperty(key);
-  //   return newValues.includes(auditObjects["first-contentful-paint"]);
-  // });
   const selectedObjects = [
     "cumulative-layout-shift",
     "first-contentful-paint",
@@ -38,14 +31,62 @@ const ResultPage: React.FC = () => {
     "largest-contentful-paint",
   ];
 
-  let newAuditsObject: auditProp = newKeys
-    .filter((key) => selectedObjects.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = auditObjects[key];
-      return Object.values(obj);
-    }, {});
+  console.log(screenshotObj);
 
-  console.log(newAuditsObject);
+  let newAuditsObject = newKeys
+    .filter((key) => selectedObjects.includes(key))
+    .map((key) => {
+      return auditObjects[key];
+    })
+    .filter((el) => el);
+
+  let opportunity: TabProps["opportunity"] = [];
+  let table = [];
+  let debugdata = [];
+  let criticalreq = [];
+  let treemap = [];
+  newEl.forEach((el) => {
+    if (el && "details" in el) {
+      if (el.details.type === "opportunity") {
+        const { details, ...rest } = el;
+        opportunity.push({ details, ...rest });
+      }
+    }
+  });
+
+  // else if ("type" in el.details && el.details.type === "table") {
+  //   table.push(el);
+  // } else if ("type" in el.details && el.details.type === "debugdata") {
+  //   debugdata.push(el);
+  // } else if (
+  //   "type" in el.details &&
+  //   el.details.type === "criticalrequestchain"
+  // ) {
+  //   criticalreq.push(el);
+  // } else {
+  //   treemap.push(el);
+  // }
+
+  // let newEl = Object.entries(auditObjects);
+  // for (let i = 0; i < newEl.length; i++) {
+  //   const element = newEl[i];
+  //   const test = element[1];
+  //   // console.log(test);
+  //   if ("details" in test && "type" in test.details) {
+  //     if ("type" in test.details && test.details.type === "opportunity") {
+  //       let newArray = [];
+  //       console.log(newArray.push(auditObjects[i]));
+  //       const testArray = Array(test);
+  //       testArray.reduce<typeof element>((obj, val) => {
+  //         // console.log(newArray.push(val));
+  //         return obj.concat(val);
+  //       }, []);
+  //       // console.log(testArray);
+  //     }
+  //   }
+  // }
+
+  // console.log(newAuditsObject);
   let perfScore = data.lighthouseResult.categories.performance.score;
 
   return (
@@ -94,19 +135,25 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="FCP"
               timing={
-                metricsCalc(metricsobjects.firstContentfulPaint) < "1.8s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.firstContentfulPaint)}
-                  </p>
-                ) : metricsCalc(metricsobjects.firstContentfulPaint) <
-                  "4.0s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.firstContentfulPaint)}
-                  </p>
+                metricsobjects &&
+                "firstContentfulPaint" in metricsobjects &&
+                metricsobjects?.firstContentfulPaint ? (
+                  metricsCalc(metricsobjects?.firstContentfulPaint) < "1.8s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects?.firstContentfulPaint)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.firstContentfulPaint) <
+                    "4.0s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.firstContentfulPaint)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.firstContentfulPaint)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.firstContentfulPaint)}
-                  </p>
+                  <></>
                 )
               }
               italictext="(First contentful paint)"
@@ -117,18 +164,24 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="TTI"
               timing={
-                metricsCalc(metricsobjects.interactive) < "3.8s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.interactive)}
-                  </p>
-                ) : metricsCalc(metricsobjects.interactive) < "7.3s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.interactive)}
-                  </p>
+                metricsobjects &&
+                "interactive" in metricsobjects &&
+                metricsobjects?.interactive ? (
+                  metricsCalc(metricsobjects.interactive) < "3.8s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects.interactive)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.interactive) < "7.3s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.interactive)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.interactive)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.interactive)}
-                  </p>
+                  <></>
                 )
               }
               italictext="Time To Interactive"
@@ -138,18 +191,24 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="SI"
               timing={
-                metricsCalc(metricsobjects.speedIndex) < "4.3s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.speedIndex)}
-                  </p>
-                ) : metricsCalc(metricsobjects.speedIndex) < "5.8s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.speedIndex)}
-                  </p>
+                metricsobjects &&
+                "speedIndex" in metricsobjects &&
+                metricsobjects?.speedIndex ? (
+                  metricsCalc(metricsobjects.speedIndex) < "4.3s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects.speedIndex)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.speedIndex) < "5.8s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.speedIndex)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.speedIndex)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.speedIndex)}
-                  </p>
+                  <></>
                 )
               }
               italictext="SpeedIndex"
@@ -160,18 +219,25 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="TBT"
               timing={
-                metricsCalc(metricsobjects.totalBlockingTime) < "0.15s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.totalBlockingTime)}
-                  </p>
-                ) : metricsCalc(metricsobjects.totalBlockingTime) < "0.24s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.totalBlockingTime)}
-                  </p>
+                metricsobjects &&
+                "totalBlockingTime" in metricsobjects &&
+                metricsobjects?.totalBlockingTime ? (
+                  metricsCalc(metricsobjects.totalBlockingTime) < "0.15s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects.totalBlockingTime)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.totalBlockingTime) <
+                    "0.24s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.totalBlockingTime)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.totalBlockingTime)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.totalBlockingTime)}
-                  </p>
+                  <></>
                 )
               }
               italictext="(Total Blocking Time)"
@@ -181,19 +247,26 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="LCP"
               timing={
-                metricsCalc(metricsobjects.largestContentfulPaint) < "2.5s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.largestContentfulPaint)}
-                  </p>
-                ) : metricsCalc(metricsobjects.largestContentfulPaint) <
-                  "4.0s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.largestContentfulPaint)}
-                  </p>
+                metricsobjects &&
+                "largestContentfulPaint" in metricsobjects &&
+                metricsobjects?.largestContentfulPaint ? (
+                  metricsCalc(metricsobjects.largestContentfulPaint) <
+                  "2.5s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects.largestContentfulPaint)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.largestContentfulPaint) <
+                    "4.0s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.largestContentfulPaint)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.largestContentfulPaint)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.largestContentfulPaint)}
-                  </p>
+                  <></>
                 )
               }
               italictext="(Largest Contentful Paint)"
@@ -204,20 +277,26 @@ const ResultPage: React.FC = () => {
             <SmallCard
               metricstitle="TCL"
               timing={
-                metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
-                "0.10s" ? (
-                  <p style={{ color: "green" }}>
-                    {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
-                  </p>
-                ) : metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
-                  "0.25s" ? (
-                  <p style={{ color: "#9C912C" }}>
-                    {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
-                  </p>
+                metricsobjects &&
+                "totalCumulativeLayoutShift" in metricsobjects &&
+                metricsobjects?.totalCumulativeLayoutShift ? (
+                  metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
+                  "0.10s" ? (
+                    <p style={{ color: "green" }}>
+                      {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
+                    </p>
+                  ) : metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
+                    "0.25s" ? (
+                    <p style={{ color: "#9C912C" }}>
+                      {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
+                    </p>
+                  )
                 ) : (
-                  <p style={{ color: "red" }}>
-                    {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
-                  </p>
+                  <></>
                 )
               }
               italictext="(Total Cumulative Layout Shift)"
@@ -230,9 +309,9 @@ const ResultPage: React.FC = () => {
           {newAuditsObject?.map((list) => (
             <div className="py-2">
               <BorderCard
-                auditTitle={list.title}
-                description={list.description}
-                timing={Calc(list.displayValue, list.title)}
+                auditTitle={list?.title || ""}
+                description={list?.description || ""}
+                timing={Calc(list?.displayValue || "", list?.title || "")}
               />
             </div>
           ))}
@@ -244,21 +323,25 @@ const ResultPage: React.FC = () => {
           <h3 className="font-bold text-xl text-lineColor">
             Visual Loading Screen
           </h3>
-          <p className="py-2">
-            {auditObjects["screenshot-thumbnails"].description}
-          </p>
+          <p className="py-2">{screenshotObj?.description}</p>
         </div>
         <div className="grid gap-2 bg-lineColor p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
-          {auditObjects["screenshot-thumbnails"].details.items.map((item) => (
-            <div className="border border-inputbg p-1 ">
-              <img
-                className="w-44"
-                src={item.data}
-                alt="screenshot thumbnails"
-              />
-            </div>
-          ))}
+          {screenshotObj?.details.type === "filmstrip"
+            ? screenshotObj?.details.items.map((item) => (
+                <div className="border border-inputbg p-1 ">
+                  <img
+                    className="w-44"
+                    src={item.data}
+                    alt="screenshot thumbnails"
+                  />
+                </div>
+              ))
+            : null}
         </div>
+      </section>
+      {/**=================Full results tab section============== */}
+      <section>
+        <FullResultTab opportunity={opportunity} />
       </section>
     </>
   );
