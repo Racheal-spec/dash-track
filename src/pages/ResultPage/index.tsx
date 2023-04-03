@@ -10,6 +10,7 @@ import metricsCalc from "../../utils/metricsCalc";
 import Calc from "../../utils/timeFunction";
 import FullResultTab from "../../components/TabsComponent/FullResultTab";
 import { TabProps } from "../../Types/TabsProp";
+import { opportunityAudit, tableAudit } from "../../Types/GlobalTypes";
 
 const ResultPage: React.FC = () => {
   const { data } = useContext(ApiContext);
@@ -31,8 +32,6 @@ const ResultPage: React.FC = () => {
     "largest-contentful-paint",
   ];
 
-  console.log(screenshotObj);
-
   let newAuditsObject = newKeys
     .filter((key) => selectedObjects.includes(key))
     .map((key) => {
@@ -40,8 +39,8 @@ const ResultPage: React.FC = () => {
     })
     .filter((el) => el);
 
-  let opportunity: TabProps["opportunity"] = [];
-  let table = [];
+  let opportunity: opportunityAudit[] = [];
+  let table: tableAudit[] = [];
   let debugdata = [];
   let criticalreq = [];
   let treemap = [];
@@ -49,44 +48,22 @@ const ResultPage: React.FC = () => {
     if (el && "details" in el) {
       if (el.details.type === "opportunity") {
         const { details, ...rest } = el;
-        opportunity.push({ details, ...rest });
+        opportunity?.push({ details, ...rest });
       }
     }
   });
 
-  // else if ("type" in el.details && el.details.type === "table") {
-  //   table.push(el);
-  // } else if ("type" in el.details && el.details.type === "debugdata") {
-  //   debugdata.push(el);
-  // } else if (
-  //   "type" in el.details &&
-  //   el.details.type === "criticalrequestchain"
-  // ) {
-  //   criticalreq.push(el);
-  // } else {
-  //   treemap.push(el);
-  // }
+  newEl.forEach((el) => {
+    if (el && "details" in el) {
+      if (el.details.type === "table") {
+        const { details, ...rest } = el;
+        table?.push({ details, ...rest });
+      }
+    }
+  });
 
-  // let newEl = Object.entries(auditObjects);
-  // for (let i = 0; i < newEl.length; i++) {
-  //   const element = newEl[i];
-  //   const test = element[1];
-  //   // console.log(test);
-  //   if ("details" in test && "type" in test.details) {
-  //     if ("type" in test.details && test.details.type === "opportunity") {
-  //       let newArray = [];
-  //       console.log(newArray.push(auditObjects[i]));
-  //       const testArray = Array(test);
-  //       testArray.reduce<typeof element>((obj, val) => {
-  //         // console.log(newArray.push(val));
-  //         return obj.concat(val);
-  //       }, []);
-  //       // console.log(testArray);
-  //     }
-  //   }
-  // }
+  console.log(opportunity);
 
-  // console.log(newAuditsObject);
   let perfScore = data.lighthouseResult.categories.performance.score;
 
   return (
@@ -341,7 +318,7 @@ const ResultPage: React.FC = () => {
       </section>
       {/**=================Full results tab section============== */}
       <section>
-        <FullResultTab opportunity={opportunity} />
+        <FullResultTab opportunity={opportunity} table={table} />
       </section>
     </>
   );

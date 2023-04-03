@@ -26,7 +26,7 @@ const TabItem: React.FC<TabItemProps> = ({
     <>
       <li
         onClick={handleClick}
-        className="w-4/6 py-2 rounded-3xl"
+        className="w-4/6 py-2 rounded-3xl cursor-pointer"
         style={activeTab === id ? tabstyle : {}}
       >
         <p className="mx-20">{title}</p>

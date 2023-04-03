@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
-import { opportunityAudit } from "./GlobalTypes";
+import { opportunityAudit, tableAudit } from "./GlobalTypes";
 
 export type TabProps = {
-  opportunity: opportunityAudit[];
+  opportunity?: opportunityAudit[];
+  table?: tableAudit[];
+  postsToShow?: opportunityAudit[];
 };

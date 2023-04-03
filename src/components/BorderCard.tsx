@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { auditSingleProp } from "../Types/BorderProp";
+import { LearnLink } from "../utils/globalFunc";
 
 const BorderCard: React.FC<auditSingleProp> = ({
   auditTitle,
@@ -21,7 +22,10 @@ const BorderCard: React.FC<auditSingleProp> = ({
           <p className="text-[11px] text-urlColor font-semibold">
             {description.split("[")[0]}
           </p>
-          <a className="text-[11px] text-greenDark font-bold" href={learnLink}>
+          <a
+            className="text-[11px] text-greenDark font-bold"
+            href={LearnLink(description)}
+          >
             Learn more
           </a>
         </div>

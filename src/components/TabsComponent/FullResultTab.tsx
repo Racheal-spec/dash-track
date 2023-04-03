@@ -1,14 +1,35 @@
-import React, { useState } from "react";
-import { oppProp, TabProps } from "../../Types/TabsProp";
-import Tab1 from "./Tab1";
+import React, { useEffect, useState } from "react";
+import { TabProps } from "../../Types/TabsProp";
 import Tab2 from "./Tab2";
 import Tab3 from "./Tab3";
 import TabContent from "./TabContent";
 import TabItem from "./TabItem";
+import TabTable from "./TabTable";
+import TabOpportunity from "./TabOpportunity";
+import Button from "../../uikits/Button";
+import { opportunityAudit } from "../../Types/GlobalTypes";
 
-const FullResultTab: React.FC<TabProps> = ({ opportunity }) => {
-  const [activeTab, setActiveTab] = useState("tab 1");
-  console.log(opportunity);
+const FullResultTab: React.FC<TabProps> = ({ opportunity, table }) => {
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [postsToShow, setPostsToShow] = useState<opportunityAudit[]>([]);
+  const [postsPerPage, setPostPerPage] = useState(3);
+
+  const loopWithSlice = (start: number, end: number) => {
+    if (opportunity) {
+      let opportunityArr: opportunityAudit[] = opportunity;
+      const slicedPosts = opportunityArr.slice(start, end);
+      setPostsToShow(slicedPosts);
+    }
+  };
+
+  useEffect(() => {
+    loopWithSlice(0, postsPerPage);
+  }, [postsPerPage]);
+
+  const handleShowBtn = () => {
+    setPostPerPage((prev) => prev + 3);
+  };
+
   return (
     <div>
       <div className="Tabs">
@@ -47,12 +68,21 @@ const FullResultTab: React.FC<TabProps> = ({ opportunity }) => {
         </ul>
         <div className="py-14">
           <TabContent id="tab1" activeTab={activeTab}>
-            <Tab1 opportunity={opportunity} />
+            <TabOpportunity
+              opportunity={opportunity}
+              postsToShow={postsToShow}
+            />
+            <div className="flex justify-end">
+              <Button title="Load More" onClick={handleShowBtn} />
+            </div>
           </TabContent>
           <TabContent id="tab2" activeTab={activeTab}>
-            <Tab2 />
+            <TabTable table={table} />
           </TabContent>
           <TabContent id="tab3" activeTab={activeTab}>
+            <Tab2 />
+          </TabContent>
+          <TabContent id="tab4" activeTab={activeTab}>
             <Tab3 />
           </TabContent>
         </div>

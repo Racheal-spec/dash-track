@@ -9,7 +9,7 @@ import Report from "./pages/Report";
 const App: React.FC = () => {
   const { mainurl } = useContext(ApiContext);
   return (
-    <section className="bg-offwhite">
+    <section className="bg-white">
       <Navbar />
       <div className=" px-28">
         <Routes>

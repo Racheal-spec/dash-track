@@ -1,3 +1,5 @@
+import { commonTableResponse } from "./GlobalTypes";
+
 export type debugdataResponse = {
   firstMeaningfulPaint: number;
   cumulativeLayoutShift: number;
@@ -42,25 +44,9 @@ export type debugdataResponse = {
   observedFirstVisualChangeTs: number;
 };
 
-export type opportunityResponse = {
+export type opportunityResponse = commonTableResponse & {
   wastedBytes: number;
   wastedPercent: number;
-  node: {
-    lhId: string;
-    path: string;
-    type: string;
-    snippet: string;
-    nodeLabel: string;
-    boundingRect: {
-      right: number;
-      left: number;
-      width: number;
-      bottom: number;
-      height: number;
-      top: number;
-    };
-    selector: string;
-  };
   totalBytes: number;
   url: string;
 };
@@ -69,4 +55,59 @@ export type filmstripResponse = {
   data: string;
   timing: number;
   timestamp: number;
+};
+
+export type tableResponse = commonTableResponse & {
+  scriptParseCompile: number;
+  total: number;
+  url: string;
+  scripting: number;
+  duration: number;
+  startTime: number;
+  statistic: string;
+  value: {
+    value: number;
+    granularity: number;
+    type: string;
+  };
+  totalBytes: number;
+  resourceType: string;
+  statusCode: number;
+  finished: boolean;
+  rendererStartTime: number;
+  experimentalFromMainFrame: boolean;
+  resourceSize: number;
+  transferSize: number;
+  networkEndTime: number;
+  priority: string;
+  protocol: string;
+  networkRequestTime: number;
+  mimeType: string;
+  source: {
+    line: number;
+    column: number;
+    type: string;
+    url: string;
+    urlProvider: string;
+  };
+  subItems: {
+    type: string;
+    items: {
+      failureReason: string;
+      animation: string;
+      mainThreadTime: number;
+      blockingTime: number;
+      url: string;
+      transferSize: number;
+    }[];
+  };
+  mainThreadTime: number;
+  blockingTime: number;
+  entity: string;
+  wastedMs: number;
+  groupLabel: string;
+  group: string;
+  score: number;
+  label: string;
+  requestCount: number;
 };
