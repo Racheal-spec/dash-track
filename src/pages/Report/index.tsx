@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import BorderCard from "../../components/BorderCard";
 import ProgressBar from "../../components/ProgressBar";
 import WaitingAnimation from "../../components/WaitingAnimation";
 import ApiContext from "../../contexts/ApiContext";
 import ResultPage from "../ResultPage";
+import undraw from "../../assets/undraw.png";
 
 const Report: React.FC = () => {
   const { progress, data, resError } = useContext(ApiContext);
@@ -19,8 +18,9 @@ const Report: React.FC = () => {
         {progress === 100 ? (
           <>
             {resError?.data.error.code === 500 ? (
-              <div>
-                <p>{resError.data.error.message}</p>
+              <div className="flex flex-col items-center">
+                <img className="w-2/4" src={undraw} alt="error 500" />
+                <p className="text-center">{resError.data.error.message}</p>
               </div>
             ) : (
               <ResultPage />
