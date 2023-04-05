@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { TabProps } from "../../Types/TabsProp";
-import Tab2 from "./Tab2";
-import Tab3 from "./Tab3";
+import Tab2 from "./TabTreemap";
+import Tab3 from "./TabDebugData";
 import TabContent from "./TabContent";
 import TabItem from "./TabItem";
 import TabTable from "./TabTable";
 import TabOpportunity from "./TabOpportunity";
 import Button from "../../uikits/Button";
 import { opportunityAudit } from "../../Types/GlobalTypes";
+import TabDebugData from "./TabDebugData";
+import TabTreemap from "./TabTreemap";
 
-const FullResultTab: React.FC<TabProps> = ({ opportunity, table }) => {
+const FullResultTab: React.FC<TabProps> = ({
+  opportunity,
+  table,
+  debugdata,
+  treemap,
+}) => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [postsToShow, setPostsToShow] = useState<opportunityAudit[]>([]);
   const [postsPerPage, setPostPerPage] = useState(3);
@@ -48,19 +55,19 @@ const FullResultTab: React.FC<TabProps> = ({ opportunity, table }) => {
         {/* Tab nav */}
         <ul className="flex items-centerjustify-center rounded-3xl border border-greenDark w-auto">
           <TabItem
-            title="Opportunity"
+            title="Diagnostic"
             id="tab1"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
           <TabItem
-            title="Diagnostic"
+            title="General"
             id="tab2"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
           <TabItem
-            title="General"
+            title="View TreeMap"
             id="tab3"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
@@ -80,10 +87,10 @@ const FullResultTab: React.FC<TabProps> = ({ opportunity, table }) => {
             <TabTable table={table} />
           </TabContent>
           <TabContent id="tab3" activeTab={activeTab}>
-            <Tab2 />
+            <TabTreemap treemap={treemap} />
           </TabContent>
           <TabContent id="tab4" activeTab={activeTab}>
-            <Tab3 />
+            <TabDebugData debugdata={debugdata} />
           </TabContent>
         </div>
       </div>

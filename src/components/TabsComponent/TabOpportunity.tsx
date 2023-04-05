@@ -50,7 +50,8 @@ const TabOpportunity: React.FC<TabProps> = ({ postsToShow }) => {
                                 href={detail.url}
                                 className=" text-[12px] text-secondary"
                               >
-                                {detail.url.slice(-4) === ".png" ? (
+                                {detail.url.slice(-4) === ".png" ||
+                                detail.url.slice(-4) === ".jpg" ? (
                                   <img
                                     src={detail.url}
                                     className="w-36"

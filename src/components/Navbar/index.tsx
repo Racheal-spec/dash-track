@@ -1,5 +1,6 @@
 import React from "react";
 import logoDashTrack from "../../assets/logoDashTrack.png";
+import Button from "../../uikits/Button";
 
 const Navbar: React.FC = () => {
   return (
@@ -11,8 +12,13 @@ const Navbar: React.FC = () => {
               <img src={logoDashTrack} alt="dashtrack logo" />
             </li>
             <ul className="flex divide-x-2 divide-textHeaderDark">
-              <li className="px-2 text-sm">Login</li>
-              <li className="px-2 text-sm">Sign-up</li>
+              <li className="px-2 text-sm">
+                <Button title="Sign-up" />
+              </li>
+              <li className="px-2 text-sm">
+                {" "}
+                <Button outline={true} title="Login" />
+              </li>
             </ul>
           </ul>
         </nav>

@@ -3,6 +3,7 @@ import {
   filmstripResponse,
   opportunityResponse,
   tableResponse,
+  treemapResponse,
 } from "./API";
 
 export type commonAudit = {
@@ -38,7 +39,7 @@ export type analyticsType =
   | "debugdata"
   | "criticalrequestchain"
   | "filmstrip"
-  | "treemap";
+  | "script-treemap-data";
 
 export type auditType<D extends analyticsType, T> = {
   details: {
@@ -57,8 +58,11 @@ export type filmstripAudit = auditType<"filmstrip", filmstripResponse>;
 
 export type tableAudit = auditType<"table", Partial<tableResponse>>;
 
+export type treemapAudit = auditType<"script-treemap-data", treemapResponse>;
+
 export type audit =
   | opportunityAudit
   | debugdataAudit
   | filmstripAudit
+  | treemapAudit
   | tableAudit;

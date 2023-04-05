@@ -111,3 +111,16 @@ export type tableResponse = commonTableResponse & {
   label: string;
   requestCount: number;
 };
+
+export type treemapResponse = {
+  node: {
+    children?: {
+      name: string;
+      resourceBytes: number;
+      unusedBytes: number;
+    }[];
+    resourceBytes: number;
+    unusedBytes: number;
+    name: string;
+  }[];
+};

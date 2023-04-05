@@ -10,12 +10,20 @@ import metricsCalc from "../../utils/metricsCalc";
 import Calc from "../../utils/timeFunction";
 import FullResultTab from "../../components/TabsComponent/FullResultTab";
 import { TabProps } from "../../Types/TabsProp";
-import { opportunityAudit, tableAudit } from "../../Types/GlobalTypes";
+import {
+  debugdataAudit,
+  opportunityAudit,
+  tableAudit,
+  treemapAudit,
+} from "../../Types/GlobalTypes";
+import { useLocation } from "react-router-dom";
 
 const ResultPage: React.FC = () => {
-  const { data } = useContext(ApiContext);
+  const { data, progress } = useContext(ApiContext);
+  const location = useLocation();
+  const currentUrl = location.search.substring(5);
+  console.log(data);
 
-  // console.log(data);
   const auditObjects = data.lighthouseResult.audits;
   const screenshotObj = data.lighthouseResult.audits["screenshot-thumbnails"];
   const metricsobjects =
@@ -41,9 +49,9 @@ const ResultPage: React.FC = () => {
 
   let opportunity: opportunityAudit[] = [];
   let table: tableAudit[] = [];
-  let debugdata = [];
+  let debugdata: debugdataAudit[] = [];
   let criticalreq = [];
-  let treemap = [];
+  let treemap: treemapAudit[] = [];
   newEl.forEach((el) => {
     if (el && "details" in el) {
       if (el.details.type === "opportunity") {
@@ -62,12 +70,71 @@ const ResultPage: React.FC = () => {
     }
   });
 
-  console.log(opportunity);
+  newEl.forEach((el) => {
+    if (el && "details" in el) {
+      if (el.details.type === "debugdata") {
+        const { details, ...rest } = el;
+        debugdata?.push({ details, ...rest });
+      }
+    }
+  });
 
+  newEl.forEach((el) => {
+    if (el && "details" in el) {
+      if (el.details.type === "script-treemap-data") {
+        const { details, ...rest } = el;
+        treemap?.push({ details, ...rest });
+      }
+    }
+  });
   let perfScore = data.lighthouseResult.categories.performance.score;
-
+  const style = {
+    fontWeight: "bold",
+    fontSize: "1.6rem",
+    color: "#1E1E1E",
+    padding: "20px 0",
+  };
+  const styleNone = {
+    display: "none",
+  };
   return (
     <>
+      <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
+      <div className="py-10">
+        <div className="max-w-lg bg-lightGreen text-sm">
+          <div className="flex flex-col m-0">
+            <div className="flex">
+              <div className="w-24 text-center bg-greenDark p-4 text-greylight">
+                URL
+              </div>
+              <div className="p-4 text-urlColor">{currentUrl}</div>
+            </div>
+            <hr className="min-w-full mx-auto text-lineColor" />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex">
+              <div className="w-24 text-center bg-greenDark p-4 text-greylight">
+                Date/Time
+              </div>
+              <div className="p-4 text-urlColor">
+                {data ? data.analysisUTCTimestamp : "---"}
+              </div>
+            </div>
+            <hr className="min-w-full mx-auto text-lineColor" />
+          </div>
+
+          <div className="flex">
+            <div className="p-8 bg-greenDark text-center text-greylight">
+              From
+            </div>
+            <div className="p-4 text-urlColor">
+              {data.lighthouseResult
+                ? data.lighthouseResult.environment.hostUserAgent
+                : "---"}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="border border-lineColor border-opacity-25">
         <div>
           <h2 className="text-2xl text-urlColor text-center py-5 font-bold">
@@ -318,7 +385,12 @@ const ResultPage: React.FC = () => {
       </section>
       {/**=================Full results tab section============== */}
       <section>
-        <FullResultTab opportunity={opportunity} table={table} />
+        <FullResultTab
+          opportunity={opportunity}
+          table={table}
+          debugdata={debugdata}
+          treemap={treemap}
+        />
       </section>
     </>
   );

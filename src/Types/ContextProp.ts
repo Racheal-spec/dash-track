@@ -21,6 +21,14 @@ export type metricsProps = commonAudit & {
 };
 
 export type stateProps = {
+  resError?: {
+    data: {
+      error: {
+        code: number;
+        message: string;
+      };
+    };
+  };
   data: {
     id: string;
     loadingExperience: object;
