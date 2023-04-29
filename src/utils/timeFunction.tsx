@@ -1,6 +1,6 @@
 import React from "react";
 
-const Calc = (val: string, title: string) => {
+const Calc = (val: string | number, title: string) => {
   if (title === "Largest Contentful Paint" && val <= "2.5s") {
     return <p style={{ color: "green" }}>{val}</p>;
   } else if (title === "Largest Contentful Paint" && val < "4.0s") {

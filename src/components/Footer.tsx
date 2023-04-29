@@ -3,7 +3,7 @@ import logoDashTrack from "../assets/logoDashTrack.png";
 
 const Footer: React.FC = () => {
   return (
-    <section className="p-10">
+    <section className="px-10">
       <hr className="w-10/12 mx-auto py-5 text-lineColor opacity-25" />
       <ul className="flex justify-between py-5">
         <li>

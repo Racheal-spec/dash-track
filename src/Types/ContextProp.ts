@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import { audit, auditType, commonAudit } from "./GlobalTypes";
-import { TabProps } from "./TabsProp";
+import { audit, commonAudit } from "./GlobalTypes";
 
 export interface ChildrenProp {
   children: ReactNode;

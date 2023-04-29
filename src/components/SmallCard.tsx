@@ -11,7 +11,9 @@ const SmallCard = ({ metricstitle, timing, italictext }: SmallcardProps) => {
     <div>
       <div className="py-5 h-28 px-8 bg-smallcardColor font-bold border-r-[1.5px] border-l-textPlaceholder">
         <p className="text-center text-[12px] text-urlColor">{metricstitle}</p>
-        <p className="text-[9px] italic text-lineColor mb-3">{italictext}</p>
+        <p className="text-[9px] text-center italic text-lineColor mb-3">
+          {italictext}
+        </p>
         <p className="text-center text-2xl font-semibold">{timing}</p>
       </div>
     </div>

@@ -39,7 +39,7 @@ export type analyticsType =
   | "debugdata"
   | "criticalrequestchain"
   | "filmstrip"
-  | "script-treemap-data";
+  | "treemap-data";
 
 export type auditType<D extends analyticsType, T> = {
   details: {
@@ -58,7 +58,7 @@ export type filmstripAudit = auditType<"filmstrip", filmstripResponse>;
 
 export type tableAudit = auditType<"table", Partial<tableResponse>>;
 
-export type treemapAudit = auditType<"script-treemap-data", treemapResponse>;
+export type treemapAudit = auditType<"treemap-data", Partial<treemapResponse>>;
 
 export type audit =
   | opportunityAudit

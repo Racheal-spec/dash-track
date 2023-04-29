@@ -5,7 +5,11 @@ const TabTreemap: React.FC<TabProps> = ({ treemap }) => {
   console.log(treemap);
   return (
     <div className="">
-      <p>Treemap Tab!! Hurray!!</p>
+      {treemap?.map((tree) => (
+        <>
+          <div>{tree.description}</div>
+        </>
+      ))}
       {/* Second  tab content will go here */}
     </div>
   );

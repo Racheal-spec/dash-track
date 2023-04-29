@@ -8,7 +8,6 @@ import undraw from "../../assets/undraw.png";
 const Report: React.FC = () => {
   const { progress, data, resError } = useContext(ApiContext);
 
-  console.log(data);
   console.log(resError?.data.error.message);
 
   return (

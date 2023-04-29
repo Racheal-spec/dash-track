@@ -36,7 +36,7 @@ const FullResultTab: React.FC<TabProps> = ({
   const handleShowBtn = () => {
     setPostPerPage((prev) => prev + 3);
   };
-
+  // console.log(treemap);
   return (
     <div>
       <div className="Tabs">
@@ -66,12 +66,18 @@ const FullResultTab: React.FC<TabProps> = ({
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
-          <TabItem
+          {/* <TabItem
+            title="Debug Data"
+            id="tab3"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          /> */}
+          {/* <TabItem
             title="View TreeMap"
             id="tab3"
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-          />
+          /> */}
         </ul>
         <div className="py-14">
           <TabContent id="tab1" activeTab={activeTab}>
@@ -86,12 +92,12 @@ const FullResultTab: React.FC<TabProps> = ({
           <TabContent id="tab2" activeTab={activeTab}>
             <TabTable table={table} />
           </TabContent>
-          <TabContent id="tab3" activeTab={activeTab}>
+          {/* <TabContent id="tab3" activeTab={activeTab}>
             <TabTreemap treemap={treemap} />
-          </TabContent>
-          <TabContent id="tab4" activeTab={activeTab}>
+          </TabContent> */}
+          {/* <TabContent id="tab3" activeTab={activeTab}>
             <TabDebugData debugdata={debugdata} />
-          </TabContent>
+          </TabContent> */}
         </div>
       </div>
     </div>

@@ -52,6 +52,7 @@ const ResultPage: React.FC = () => {
   let debugdata: debugdataAudit[] = [];
   let criticalreq = [];
   let treemap: treemapAudit[] = [];
+  console.log(treemap);
   newEl.forEach((el) => {
     if (el && "details" in el) {
       if (el.details.type === "opportunity") {
@@ -81,7 +82,7 @@ const ResultPage: React.FC = () => {
 
   newEl.forEach((el) => {
     if (el && "details" in el) {
-      if (el.details.type === "script-treemap-data") {
+      if (el.details.type === "treemap-data") {
         const { details, ...rest } = el;
         treemap?.push({ details, ...rest });
       }
@@ -266,7 +267,7 @@ const ResultPage: React.FC = () => {
                 metricsobjects &&
                 "totalBlockingTime" in metricsobjects &&
                 metricsobjects?.totalBlockingTime ? (
-                  metricsCalc(metricsobjects.totalBlockingTime) < "0.15s" ? (
+                  metricsCalc(metricsobjects.totalBlockingTime) <= "0.15s" ? (
                     <p style={{ color: "green" }}>
                       {metricsCalc(metricsobjects.totalBlockingTime)}
                     </p>
@@ -281,7 +282,7 @@ const ResultPage: React.FC = () => {
                     </p>
                   )
                 ) : (
-                  <></>
+                  <>---</>
                 )
               }
               italictext="(Total Blocking Time)"
