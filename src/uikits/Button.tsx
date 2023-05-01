@@ -5,8 +5,10 @@ type Btntitle = {
   title: string;
   outline?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  className?: string;
 };
-const Button = ({ title, onClick, outline }: Btntitle) => {
+const Button = ({ title, onClick, disabled, className, outline }: Btntitle) => {
   const { isValidate } = useContext(ApiContext);
   return (
     <div>
@@ -15,21 +17,13 @@ const Button = ({ title, onClick, outline }: Btntitle) => {
           onClick={onClick}
           disabled={!isValidate}
           className={
-            "font-semibold px-4 py-[8px] border border- hover:animate-ease cursor-pointer hover:text-hoverColor hover:scale"
+            "font-semibold px-4 py-[8px] border hover:animate-ease cursor-pointer hover:text-secondary hover:scale"
           }
         >
           <p className="text-sm">{title}</p>
         </button>
       ) : (
-        <button
-          onClick={onClick}
-          disabled={!isValidate}
-          className={
-            isValidate
-              ? "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-hoverColor hover:scale text-white  bg-secondary"
-              : "bg-textPlaceholder px-4 cursor-not-allowed text-white py-2"
-          }
-        >
+        <button onClick={onClick} disabled={disabled} className={className}>
           <p className="text-sm">{title}</p>
         </button>
       )}

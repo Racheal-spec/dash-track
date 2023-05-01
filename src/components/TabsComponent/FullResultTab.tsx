@@ -41,19 +41,22 @@ const FullResultTab: React.FC<TabProps> = ({
     <div>
       <div className="Tabs">
         <div className="py-7 w-6/12">
-          <h2 className="text-2xl text-textHeaderDark font-bold">
+          <h2 className="text-2xl dark:text-offwhite text-textHeaderDark font-bold">
             Performance Breakdown
           </h2>
+          <hr className=" w-28 text-primaryColor dark:text-secondary " />
           <div className="py-3">
-            <p>
+            <p className="dark:text-textDark">
               Discover what your real users are experiencing and get suggested
               ways to improve your website's performance.
             </p>
-            <p>Get first hand solutions and gain 10x more users.</p>
+            <p className="dark:text-textDark">
+              Get first hand solutions and gain 10x more users.
+            </p>
           </div>
         </div>
         {/* Tab nav */}
-        <ul className="flex items-centerjustify-center rounded-3xl border border-greenDark w-auto">
+        <ul className="flex items-centerjustify-center rounded-3xl border border-secondary w-auto">
           <TabItem
             title="Diagnostic"
             id="tab1"
@@ -86,7 +89,13 @@ const FullResultTab: React.FC<TabProps> = ({
               postsToShow={postsToShow}
             />
             <div className="flex justify-end">
-              <Button title="Load More" onClick={handleShowBtn} />
+              <Button
+                title="Load More"
+                className={
+                  "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
+                }
+                onClick={handleShowBtn}
+              />
             </div>
           </TabContent>
           <TabContent id="tab2" activeTab={activeTab}>

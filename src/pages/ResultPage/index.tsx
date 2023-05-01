@@ -99,36 +99,31 @@ const ResultPage: React.FC = () => {
     display: "none",
   };
   return (
-    <>
+    <section className="">
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
       <div className="py-10">
-        <div className="max-w-lg bg-lightGreen text-sm">
-          <div className="flex flex-col m-0">
-            <div className="flex">
-              <div className="w-24 text-center bg-greenDark p-4 text-greylight">
-                URL
+        <div className="border border-primaryColor dark:border-secondary rounded-lg py-4 text-black dark:text-greylight text-sm">
+          <div className="flex justify-between items-center pb-6">
+            <div className="flex flex-col">
+              <div className="flex py-2">
+                <p className="pl-8 text-center">URL - </p>
+                <div className="pl-4">{currentUrl}</div>
               </div>
-              <div className="p-4 text-urlColor">{currentUrl}</div>
+
+              <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
             </div>
-            <hr className="min-w-full mx-auto text-lineColor" />
-          </div>
-          <div className="flex flex-col">
+
             <div className="flex">
-              <div className="w-24 text-center bg-greenDark p-4 text-greylight">
-                Date/Time
-              </div>
-              <div className="p-4 text-urlColor">
+              <div className="text-center pr-4">Date/Time - </div>
+              <div className="pr-4">
                 {data ? data.analysisUTCTimestamp : "---"}
               </div>
             </div>
-            <hr className="min-w-full mx-auto text-lineColor" />
           </div>
 
-          <div className="flex">
-            <div className="p-8 bg-greenDark text-center text-greylight">
-              From
-            </div>
-            <div className="p-4 text-urlColor">
+          <div className="flex items-center py-5">
+            <div className="pl-8 text-center">FROM - </div>
+            <div className=" pl-4 w-2/5">
               {data.lighthouseResult
                 ? data.lighthouseResult.environment.hostUserAgent
                 : "---"}
@@ -137,14 +132,14 @@ const ResultPage: React.FC = () => {
         </div>
       </div>
       <div className="border border-lineColor border-opacity-25">
-        <div>
-          <h2 className="text-2xl text-urlColor text-center py-5 font-bold">
-            Your Performance Summary is Ready
+        <div className="py-10">
+          <h2 className="text-xl text-urlColor dark:text-offwhite pb-2 pl-8 font-bold">
+            Performance Report
           </h2>
-          <hr className="w-10/12 mx-auto text-lineColor opacity-25" />
+          <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
         </div>
-        <div className="flex justify-between items-center divide-x-2 text-lineColor py-10">
-          <div className="mx-8">
+        <div className="flex px-14 justify-between items-center divide-x-2 text-primaryColor py-10">
+          <div className="w-3/12">
             <CircularProgressbar
               maxValue={1}
               value={perfScore}
@@ -153,15 +148,14 @@ const ResultPage: React.FC = () => {
               backgroundPadding={6}
               styles={buildStyles({
                 textSize: "12px",
-                backgroundColor: "#778C7B",
+                backgroundColor: "#395107",
                 trailColor: "#D8D7D0",
                 textColor: "#fff",
-
-                pathColor: "#9C912C",
+                pathColor: "#93A372",
               })}
             />
           </div>
-          <div className="mx-10 bg-white max-w-xl max-h-96 overflow-hidden">
+          <div className="bg-white w-7/12  max-h-96 overflow-hidden">
             <img
               src={data.lighthouseResult.fullPageScreenshot.screenshot.data}
               className="p-8 shadow-textPlaceholder shadow-xl "
@@ -171,11 +165,14 @@ const ResultPage: React.FC = () => {
         </div>
       </div>
       {/**================== Metrics section======================== */}
-      <section className="py-10">
+      <div className="py-10">
         <div>
-          <p className="text-2xl text-urlColor py-5 font-bold ">Metrics</p>
+          <p className="text-2xl dark:text-offwhite text-urlColor py-1 font-bold ">
+            Metrics
+          </p>
+          <hr className=" w-28 text-primaryColor dark:text-secondary " />
         </div>
-        <div className="grid sm:gap-2 md: gap-3 lg:gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 py-3">
+        <div className="grid sm:gap-2 md: gap-3 lg:gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 py-7">
           <div>
             <SmallCard
               metricstitle="FCP"
@@ -184,7 +181,7 @@ const ResultPage: React.FC = () => {
                 "firstContentfulPaint" in metricsobjects &&
                 metricsobjects?.firstContentfulPaint ? (
                   metricsCalc(metricsobjects?.firstContentfulPaint) < "1.8s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects?.firstContentfulPaint)}
                     </p>
                   ) : metricsCalc(metricsobjects.firstContentfulPaint) <
@@ -213,7 +210,7 @@ const ResultPage: React.FC = () => {
                 "interactive" in metricsobjects &&
                 metricsobjects?.interactive ? (
                   metricsCalc(metricsobjects.interactive) < "3.8s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects.interactive)}
                     </p>
                   ) : metricsCalc(metricsobjects.interactive) < "7.3s" ? (
@@ -240,7 +237,7 @@ const ResultPage: React.FC = () => {
                 "speedIndex" in metricsobjects &&
                 metricsobjects?.speedIndex ? (
                   metricsCalc(metricsobjects.speedIndex) < "4.3s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects.speedIndex)}
                     </p>
                   ) : metricsCalc(metricsobjects.speedIndex) < "5.8s" ? (
@@ -268,7 +265,7 @@ const ResultPage: React.FC = () => {
                 "totalBlockingTime" in metricsobjects &&
                 metricsobjects?.totalBlockingTime ? (
                   metricsCalc(metricsobjects.totalBlockingTime) <= "0.15s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects.totalBlockingTime)}
                     </p>
                   ) : metricsCalc(metricsobjects.totalBlockingTime) <
@@ -297,7 +294,7 @@ const ResultPage: React.FC = () => {
                 metricsobjects?.largestContentfulPaint ? (
                   metricsCalc(metricsobjects.largestContentfulPaint) <
                   "2.5s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects.largestContentfulPaint)}
                     </p>
                   ) : metricsCalc(metricsobjects.largestContentfulPaint) <
@@ -327,7 +324,7 @@ const ResultPage: React.FC = () => {
                 metricsobjects?.totalCumulativeLayoutShift ? (
                   metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
                   "0.10s" ? (
-                    <p style={{ color: "green" }}>
+                    <p style={{ color: "#99DF04" }}>
                       {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
                     </p>
                   ) : metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
@@ -348,7 +345,7 @@ const ResultPage: React.FC = () => {
             />
           </div>
         </div>
-      </section>
+      </div>
       <section>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {newAuditsObject?.map((list) => (
@@ -363,14 +360,16 @@ const ResultPage: React.FC = () => {
         </div>
       </section>
       {/**=================Image filmstrip section============== */}
-      <section className="my-10 border border-r-greenDark">
-        <div className="bg-smallcardColor py-5 px-2 mb-5">
+      <section className="my-10 border border-primaryColor dark:border-secondary">
+        <div className="bg-smallcardColor  dark:bg-darkSmallCardColor dark:bg-opacity-25 py-5 px-2 mb-5">
           <h3 className="font-bold text-xl text-lineColor">
             Visual Loading Screen
           </h3>
-          <p className="py-2">{screenshotObj?.description}</p>
+          <p className="py-2 dark:text-greylight">
+            {screenshotObj?.description}
+          </p>
         </div>
-        <div className="grid gap-2 bg-lineColor p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
+        <div className="grid gap-2 bg-secondary p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
           {screenshotObj?.details.type === "filmstrip"
             ? screenshotObj?.details.items.map((item) => (
                 <div className="border border-inputbg p-1 ">
@@ -393,7 +392,7 @@ const ResultPage: React.FC = () => {
           treemap={treemap}
         />
       </section>
-    </>
+    </section>
   );
 };
 

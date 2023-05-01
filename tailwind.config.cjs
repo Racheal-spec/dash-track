@@ -9,14 +9,19 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
+      primaryColor: "#99DF04",
+      secondary: "#395107",
+      smallcardColor: "#EAEAEA",
+      darkSmallCardColor: "#4D5342",
+
       lightgreenbg: "#E1E9E5",
       textHeaderDark: "#1E1E1E",
       black: "#000000",
       greylight: "#D6D6D6",
-      smallcardColor: "#D5DECF",
+
       greenDark: "#2A6F39",
       urlColor: "#323232",
-      secondary: "#9C912C",
+
       inputbg: "#9BAA9E",
       lightGreen: "#9FB8A5",
       lineColor: "#778C7B",
@@ -25,6 +30,10 @@ module.exports = {
       textPlaceholder: "#858585",
       hoverColor: "#857B23",
       invalid: "#F64747",
+      darkbg: "#05100B",
+      textDark: "#989898",
+      darkInputBg: "#0C1511",
+      darkStroke: "#162019",
     },
     animation: {
       ease: "ease 0.5s ease-in-out",
@@ -44,4 +53,5 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: "class",
 };

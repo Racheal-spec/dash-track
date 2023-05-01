@@ -6,7 +6,7 @@ type ProgressProp = {
 const ProgressBar = ({ percent }: ProgressProp) => {
   const progressStyle = {
     width: `${percent}`,
-    backgroundColor: "#9C912C",
+    backgroundColor: "#395107",
     height: "100%",
     borderRadius: 15,
   };

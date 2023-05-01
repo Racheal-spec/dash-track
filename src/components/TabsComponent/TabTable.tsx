@@ -23,10 +23,14 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
       {tableImages?.map((list) => (
         <>
           <div key={list.id} className="pb-10">
-            <h2 className="font-bold py-4 text-greenDark">{list.title}</h2>
-            <p className="text-[13px]">{list?.description?.split("[")[0]}</p>
+            <h2 className="font-bold py-4 dark:text-offwhite text-secondary ">
+              {list.title}
+            </h2>
+            <p className="text-[13px] dark:text-textDark">
+              {list?.description?.split("[")[0]}
+            </p>
             <a
-              className="text-[11px] text-secondary  font-bold"
+              className="text-[11px] text-primaryColor  font-bold"
               href={LearnLink(list.description)}
             >
               {list?.description?.split("[")[1]?.split("]")[0]}
@@ -52,7 +56,7 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                     key={index}
                   >
                     <div className="">
-                      <h2 className="font-semibold">
+                      <h2 className="font-semibold dark:text-offwhite">
                         {detail.node?.nodeLabel}
                       </h2>
                     </div>
@@ -60,7 +64,7 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                       <img src={detail.url} className="w-32" alt="image" />
                     </div>
                     <div>
-                      <p className="text-[12px] text-center text-secondary">
+                      <p className="text-[12px] text-center text-primaryColor">
                         {" "}
                         {detail.node?.snippet ? detail.node.snippet : "None"}
                       </p>
@@ -76,29 +80,33 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
       {tableDom?.map((list) => (
         <>
           <div key={list.id} className="pb-10">
-            <h2 className="font-bold py-4 text-greenDark">{list.title}</h2>
-            <p className="text-[13px]">{list?.description?.split("[")[0]}</p>
+            <h2 className="font-bold py-4 dark:text-offwhite text-secondary">
+              {list.title}
+            </h2>
+            <p className="text-[13px] dark:text-textDark">
+              {list?.description?.split("[")[0]}
+            </p>
             <a
-              className="text-[11px] text-secondary  font-bold"
+              className="text-[11px] text-primaryColor font-bold"
               href={LearnLink(list.description)}
             >
               {list?.description?.split("[")[1]?.split("]")[0]}
             </a>
-            <span className="text-[13px]">
+            <span className="text-[13px] dark:text-textDark">
               {" "}
               {list?.description?.split("[")[1].split("]")[1].split(",")[1]}
               <a
                 href={
                   list?.description?.split("[")[2]?.split("]")[1].split("(")[1]
                 }
-                className="text-[11px] text-secondary  font-bold"
+                className="text-[11px] text-primaryColor  font-bold"
               >
                 {list?.description?.split("[")[2]?.split("]")[0]}
               </a>
             </span>
             <p>
               <a
-                className="text-[11px] text-secondary  font-bold"
+                className="text-[11px] text-primaryColor  font-bold"
                 href={list?.description?.split("[")[3].split("(")[1]}
               >
                 {list?.description?.split("[")[3]?.split("]")[0]}
@@ -117,7 +125,7 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                 {list.details.items.map((list, index) => (
                   <div
                     key={index}
-                    className="items-center grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
+                    className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
                   >
                     <div>{list.statistic}</div>
                     <div>{list.value?.value}</div>
@@ -131,12 +139,14 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
           {tableLSE?.map((list) => (
             <>
               <div key={list.id} className="pb-10">
-                <h2 className="font-bold py-4 text-greenDark">{list.title}</h2>
-                <p className="text-[13px]">
+                <h2 className="font-bold py-4 dark:text-offwhite text-secondary">
+                  {list.title}
+                </h2>
+                <p className="text-[13px] dark:text-textDark">
                   {list?.description?.split("[")[0]}
                 </p>
                 <a
-                  className="text-[11px] text-secondary  font-bold"
+                  className="text-[11px] text-primaryColor  font-bold"
                   href={LearnLink(list.description)}
                 >
                   {list?.description?.split("[")[1]?.split("]")[0]}
@@ -154,11 +164,11 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                     {list.details.items.map((list, index) => (
                       <div
                         key={index}
-                        className="items-center grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
+                        className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
                       >
                         <div>{list.node?.nodeLabel}</div>
                         <div>{list.score}</div>
-                        <div className=" text-secondary">
+                        <div className=" text-primaryColor">
                           {list.node?.snippet}
                         </div>
                       </div>
@@ -172,12 +182,14 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
           {tableEventListeners?.map((list) => (
             <>
               <div className="pb-10" key={list.id}>
-                <h2 className="font-bold py-4 text-greenDark">{list.title}</h2>
-                <p className="text-[13px]">
+                <h2 className="font-bold py-4 dark:text-offwhite text-secondary">
+                  {list.title}
+                </h2>
+                <p className="text-[13px] dark:text-textDark">
                   {list?.description?.split("[")[0]}
                 </p>
                 <a
-                  className="text-[11px] text-secondary  font-bold"
+                  className="text-[11px] text-primaryColor  font-bold"
                   href={LearnLink(list.description)}
                 >
                   {list?.description?.split("[")[1]?.split("]")[0]}
@@ -195,10 +207,12 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                     {list.details.items.map((list, index) => (
                       <div
                         key={index}
-                        className="items-center grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
+                        className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
                       >
                         <div>{list.source?.type}</div>
-                        <div className="text-secondary">{list.source?.url}</div>
+                        <div className="text-primaryColor">
+                          {list.source?.url}
+                        </div>
                         <div className="">{list.source?.urlProvider}</div>
                       </div>
                     ))}

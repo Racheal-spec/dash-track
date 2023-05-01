@@ -14,22 +14,24 @@ const TabOpportunity: React.FC<TabProps> = ({ postsToShow }) => {
           <div className="grid py-5 lg:grid-cols-2 md:grid-cols-3 sm:grid-cols-3">
             <div className="grid lg:grid-cols-2">
               <div>
-                <h2 className="font-bold py-4 text-greenDark">{list.title}</h2>
-                <p className="text-[12px]  pt-3">
+                <h2 className="font-bold py-4 text-secondary dark:text-offwhite">
+                  {list.title}
+                </h2>
+                <p className="text-[12px] dark:text-textDark pt-3">
                   {list?.description?.split("[")[0]}
                 </p>
                 <a
-                  className="text-[11px] text-secondary  font-bold"
+                  className="text-[11px] text-primaryColor  font-bold"
                   href={LearnLink(list.description)}
                 >
                   {list?.description?.split("[")[1]?.split("]")[0]}
                 </a>
               </div>
               <div>
-                <h2 className="font-bold py-4 text-center text-greenDark">
+                <h2 className="font-bold py-4 text-center text-secondary dark:text-offwhite">
                   Potential Savings
                 </h2>
-                <p className="text-center text-[12px] text-urlColor font-semibold pt-3">
+                <p className="text-center text-[12px] dark:text-textDark text-urlColor font-semibold pt-3">
                   {list.displayValue ? list.displayValue : "None"}
                 </p>
               </div>
@@ -48,7 +50,7 @@ const TabOpportunity: React.FC<TabProps> = ({ postsToShow }) => {
                             <div>
                               <a
                                 href={detail.url}
-                                className=" text-[12px] text-secondary"
+                                className=" text-[12px] text-primaryColor"
                               >
                                 {detail.url.slice(-4) === ".png" ||
                                 detail.url.slice(-4) === ".jpg" ? (
@@ -68,7 +70,7 @@ const TabOpportunity: React.FC<TabProps> = ({ postsToShow }) => {
                             </div>
                             <div className="">
                               {" "}
-                              <p className="text-[12px] font-semibold">
+                              <p className="text-[12px] dark:text-textDark font-semibold">
                                 {" "}
                                 {detail.totalBytes ? detail.totalBytes : "None"}
                               </p>

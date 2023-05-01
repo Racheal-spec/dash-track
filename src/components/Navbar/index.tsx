@@ -1,21 +1,44 @@
-import React from "react";
-import logoDashTrack from "../../assets/logoDashTrack.png";
+import React, { useContext, useState } from "react";
 import Button from "../../uikits/Button";
+import { BsSun } from "react-icons/bs";
+import { BsMoon } from "react-icons/bs";
+import { useTheme } from "../../utils/changeTheme";
+import ApiContext from "../../contexts/ApiContext";
 
 const Navbar: React.FC = () => {
+  const { handleMode, darkmode } = useTheme();
+  const { isValidate } = useContext(ApiContext);
+
   return (
     <>
       <section className="shadow-sm sticky px-10">
         <nav className="py-5">
-          <ul className="flex justify-between">
+          <ul className="flex justify-between items-center">
             <li>
-              <img src={logoDashTrack} alt="dashtrack logo" />
+              <p className="logo text-xl text-textHeaderDark dark:text-primaryColor">
+                _ _ _Dashtrack
+              </p>
             </li>
-            <ul className="flex divide-x-2 divide-textHeaderDark">
-              <li className="px-2 text-sm">
-                <Button title="Sign-up" />
+            <ul className="flex divide-x-2 divide-textHeaderDark dark:divide-smallcardColor divide-opacity-20 dark:divide-opacity-20">
+              <li
+                className="px-2 cursor-pointer flex justify-center items-center"
+                onClick={handleMode}
+              >
+                {darkmode ? (
+                  <BsMoon fontSize="large" />
+                ) : (
+                  <BsSun fontSize="large" color="#ffffff" />
+                )}
               </li>
               <li className="px-2 text-sm">
+                <Button
+                  className={
+                    "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
+                  }
+                  title="Sign-up"
+                />
+              </li>
+              <li className="px-2 text-sm dark:text-offwhite">
                 {" "}
                 <Button outline={true} title="Login" />
               </li>
@@ -23,7 +46,7 @@ const Navbar: React.FC = () => {
           </ul>
         </nav>
       </section>
-      <hr className="w-11/12 mx-auto text-greylight" />
+      <hr className="w-11/12 mx-auto text-greylight dark:text-darkStroke" />
     </>
   );
 };

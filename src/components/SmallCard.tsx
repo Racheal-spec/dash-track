@@ -9,8 +9,10 @@ type SmallcardProps = {
 const SmallCard = ({ metricstitle, timing, italictext }: SmallcardProps) => {
   return (
     <div>
-      <div className="py-5 h-28 px-8 bg-smallcardColor font-bold border-r-[1.5px] border-l-textPlaceholder">
-        <p className="text-center text-[12px] text-urlColor">{metricstitle}</p>
+      <div className="py-5 h-28 px-8 bg-smallcardColor dark:bg-darkSmallCardColor dark:bg-opacity-25 font-bold border-r-[1.5px] border-l-primaryColor dark:border-l-textPlaceholder">
+        <p className="text-center text-[12px] text-urlColor dark:text-greylight">
+          {metricstitle}
+        </p>
         <p className="text-[9px] text-center italic text-lineColor mb-3">
           {italictext}
         </p>

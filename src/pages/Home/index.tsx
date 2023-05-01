@@ -10,26 +10,41 @@ import ss3 from "../../assets/ss3.png";
 const Home: React.FC = () => {
   const { handleSend, isValidate } = useContext(ApiContext);
   return (
-    <section className="py-20">
+    <section className="">
       <div className="flex flex-col items-center py-10">
-        <h2 className="text-5xl font-bold">Test. Analyse . Result</h2>
-        <p className="py-8 text-sm text-center w-2/4">
+        <h2 className="text-5xl font-bold dark:text-offwhite">
+          Test. Analyse . Result
+        </h2>
+        <p className="py-8 text-sm text-center w-2/4 dark:text-textDark">
           The overall report and the data set are intended to be shared in two
           tables: a table of performance and a table of traffic. All of the
           columns are listed in one column (in the order in which they were
           first determined).
         </p>
       </div>
-      <div className="flex items-center justify-center">
-        <div className="w-3/4">
-          <Input />
+      <div className="flex flex-col">
+        <div className="flex items-center justify-center">
+          <div className="w-3/4">
+            <Input />
+          </div>
+          <div className="w-24 mx-4">
+            <Button
+              disabled={!isValidate ? true : false}
+              onClick={handleSend}
+              title="Start test"
+              className={
+                isValidate
+                  ? "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
+                  : "bg-textPlaceholder px-4 cursor-not-allowed text-white py-2"
+              }
+            />
+          </div>
         </div>
-        <div className="w-24 mx-4">
-          <Button onClick={handleSend} title="Start test" />
+        <div className="mx-20 text-xs">
+          <p className="text-invalid">
+            {isValidate ? "" : "Enter a valid URL"}
+          </p>
         </div>
-      </div>
-      <div className="">
-        <p className="text-invalid">{isValidate ? "" : "Enter a valid URL"}</p>
       </div>
       <div className="flex justify-between py-16">
         <div className="mr-10 ">
