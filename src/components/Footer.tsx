@@ -6,13 +6,13 @@ const Footer: React.FC = () => {
       <hr className="w-10/12 mx-auto py-5 text-lineColor opacity-25" />
       <ul className="flex justify-between py-5">
         <li>
-          <p className="logo text-xl text-textHeaderDark dark:text-primaryColor">
+          <p className="logo max-sm:text-sm text-xl text-textHeaderDark dark:text-primaryColor">
             _ _ _Dashtrack
           </p>
         </li>
         <div className="flex items-center dark:text-textDark">
           <li> &copy;</li>
-          <li className="text-sm pl-3 dark:text-textDark">
+          <li className="text-sm max-sm:text-xs pl-3 dark:text-textDark">
             All Rights Reserved
           </li>
         </div>

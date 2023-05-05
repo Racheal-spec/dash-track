@@ -103,18 +103,22 @@ const ResultPage: React.FC = () => {
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
       <div className="py-10">
         <div className="border border-primaryColor dark:border-secondary rounded-lg py-4 text-black dark:text-greylight text-sm">
-          <div className="flex justify-between items-center pb-6">
+          <div className="flex justify-between max-sm:flex-col max-sm:items-start items-center pb-6">
             <div className="flex flex-col">
               <div className="flex py-2">
-                <p className="pl-8 text-center">URL - </p>
-                <div className="pl-4">{currentUrl}</div>
+                <p className="pl-8 max-sm:pl-4 text-center font-bold ">
+                  URL -{" "}
+                </p>
+                <div className="pl-4 font-bold">{currentUrl}</div>
               </div>
 
               <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
             </div>
 
-            <div className="flex">
-              <div className="text-center pr-4">Date/Time - </div>
+            <div className="flex max-sm:mt-6">
+              <div className="text-center pr-4 font-bold max-sm:ml-4 ">
+                Date/Time-{" "}
+              </div>
               <div className="pr-4">
                 {data ? data.analysisUTCTimestamp : "---"}
               </div>
@@ -122,7 +126,9 @@ const ResultPage: React.FC = () => {
           </div>
 
           <div className="flex items-center py-5">
-            <div className="pl-8 text-center">FROM - </div>
+            <div className="pl-8 max-sm:pl-4 text-center font-bold">
+              FROM -{" "}
+            </div>
             <div className=" pl-4 w-2/5">
               {data.lighthouseResult
                 ? data.lighthouseResult.environment.hostUserAgent
@@ -138,8 +144,8 @@ const ResultPage: React.FC = () => {
           </h2>
           <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
         </div>
-        <div className="flex px-14 justify-between items-center divide-x-2 text-primaryColor py-10">
-          <div className="w-3/12">
+        <div className="flex px-14 max-sm:px-4  justify-between items-center max-sm:flex-col divide-x-2 max-sm:divide-x-0 text-primaryColor py-10 max-sm:py-3">
+          <div className="w-3/12 lg:w-3/12 max-sm:w-6/12 md:w-4/12">
             <CircularProgressbar
               maxValue={1}
               value={perfScore}
@@ -155,10 +161,10 @@ const ResultPage: React.FC = () => {
               })}
             />
           </div>
-          <div className="bg-white w-7/12  max-h-96 overflow-hidden">
+          <div className="w-7/12 lg:w-7/12 md:w-6/12 md:max-h-52 max-sm:py-8 max-sm:w-11/12 max-sm:max-h-64 lg:max-h-96 overflow-hidden">
             <img
               src={data.lighthouseResult.fullPageScreenshot.screenshot.data}
-              className="p-8 shadow-textPlaceholder shadow-xl "
+              className="p-8 bg-white shadow-textPlaceholder shadow-xl "
               alt="dashtrack image result"
             />
           </div>
@@ -172,7 +178,7 @@ const ResultPage: React.FC = () => {
           </p>
           <hr className=" w-28 text-primaryColor dark:text-secondary " />
         </div>
-        <div className="grid sm:gap-2 md: gap-3 lg:gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 py-7">
+        <div className="grid sm:gap-2 md: gap-3 lg:gap-0 max-sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 py-7">
           <div>
             <SmallCard
               metricstitle="FCP"
@@ -369,7 +375,7 @@ const ResultPage: React.FC = () => {
             {screenshotObj?.description}
           </p>
         </div>
-        <div className="grid gap-2 bg-secondary p-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
+        <div className="grid gap-2 bg-secondary p-2 max-sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
           {screenshotObj?.details.type === "filmstrip"
             ? screenshotObj?.details.items.map((item) => (
                 <div className="border border-inputbg p-1 ">

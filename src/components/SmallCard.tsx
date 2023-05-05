@@ -13,10 +13,12 @@ const SmallCard = ({ metricstitle, timing, italictext }: SmallcardProps) => {
         <p className="text-center text-[12px] text-urlColor dark:text-greylight">
           {metricstitle}
         </p>
-        <p className="text-[9px] text-center italic text-lineColor mb-3">
+        <p className="text-[9px] max-sm:text-[7px] text-center italic text-lineColor mb-3">
           {italictext}
         </p>
-        <p className="text-center text-2xl font-semibold">{timing}</p>
+        <p className="text-center text-textDark text-2xl font-semibold">
+          {timing}
+        </p>
       </div>
     </div>
   );

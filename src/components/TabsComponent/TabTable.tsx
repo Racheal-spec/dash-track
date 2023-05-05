@@ -47,32 +47,44 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
           open={false}
         >
           <>
-            {list.details.items
-              .filter((el) => el.url?.slice(0, 4) !== "data")
-              .map((detail, index) => (
-                <>
-                  <div
-                    className="items-center grid lg:grid-cols-[1fr_1fr_1fr] py-5"
-                    key={index}
-                  >
-                    <div className="">
-                      <h2 className="font-semibold dark:text-offwhite">
-                        {detail.node?.nodeLabel}
-                      </h2>
+            {list.details.items.length === 0 ? (
+              <div className="p-10">
+                <p className="text-center dark:text-greylight font-bold">
+                  No Data
+                </p>
+              </div>
+            ) : (
+              list.details.items
+                .filter((el) => el.url?.slice(0, 4) !== "data")
+                .map((detail, index) => (
+                  <>
+                    <div
+                      className="items-center grid lg:grid-cols-[1fr_1fr_1fr] max-sm:grid-cols-3 md:grid-cols-3 py-5"
+                      key={index}
+                    >
+                      <div className="">
+                        <h2 className="font-semibold max-sm:text-sm dark:text-offwhite">
+                          {detail.node?.nodeLabel}
+                        </h2>
+                      </div>
+                      <div className="items-center">
+                        <img
+                          src={detail.url}
+                          className="w-32 max-sm:w-24"
+                          alt="image"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-[12px] max-sm:text-[8px] text-center text-primaryColor">
+                          {" "}
+                          {detail.node?.snippet ? detail.node.snippet : "None"}
+                        </p>
+                      </div>
                     </div>
-                    <div className="items-center">
-                      <img src={detail.url} className="w-32" alt="image" />
-                    </div>
-                    <div>
-                      <p className="text-[12px] text-center text-primaryColor">
-                        {" "}
-                        {detail.node?.snippet ? detail.node.snippet : "None"}
-                      </p>
-                    </div>
-                  </div>
-                  <hr className="w-10/12 mx-auto text-lineColor opacity-25" />
-                </>
-              ))}
+                    <hr className="w-10/12 mx-auto text-lineColor opacity-25" />
+                  </>
+                ))
+            )}
           </>
         </Collapsible>
       ))}
@@ -122,16 +134,24 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
               key={list.id}
             >
               <>
-                {list.details.items.map((list, index) => (
-                  <div
-                    key={index}
-                    className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
-                  >
-                    <div>{list.statistic}</div>
-                    <div>{list.value?.value}</div>
-                    <div>{list.value?.granularity}</div>
+                {list.details.items.length === 0 ? (
+                  <div className="p-10">
+                    <p className="text-center dark:text-greylight font-bold">
+                      No Data
+                    </p>
                   </div>
-                ))}
+                ) : (
+                  list.details.items.map((list, index) => (
+                    <div
+                      key={index}
+                      className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] max-sm:grid-cols-3 md:grid-cols-3 gap-10 py-5"
+                    >
+                      <div>{list.statistic}</div>
+                      <div>{list.value?.value}</div>
+                      <div>{list.value?.granularity}</div>
+                    </div>
+                  ))
+                )}
               </>
             </Collapsible>
           ))}
@@ -161,18 +181,30 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                   key={list.id}
                 >
                   <>
-                    {list.details.items.map((list, index) => (
-                      <div
-                        key={index}
-                        className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
-                      >
-                        <div>{list.node?.nodeLabel}</div>
-                        <div>{list.score}</div>
-                        <div className=" text-primaryColor">
-                          {list.node?.snippet}
-                        </div>
+                    {list.details.items.length === 0 ? (
+                      <div className="p-10">
+                        <p className="text-center dark:text-greylight font-bold">
+                          No Data
+                        </p>
                       </div>
-                    ))}
+                    ) : (
+                      list.details.items.map((list, index) => (
+                        <div
+                          key={index}
+                          className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] max-sm:grid-cols-3 md:grid-cols-3 gap-10 py-5"
+                        >
+                          <div className="max-sm:text-sm">
+                            {list.node?.nodeLabel}
+                          </div>
+                          <div className="max-sm:text-sm">
+                            {list.score?.toPrecision(3)}
+                          </div>
+                          <div className="max-sm:text-[8px] text-primaryColor">
+                            {list.node?.snippet}
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </>
                 </Collapsible>
               ))}
@@ -204,18 +236,26 @@ const TabTable: React.FC<TabProps> = ({ table }) => {
                   key={list.id}
                 >
                   <>
-                    {list.details.items.map((list, index) => (
-                      <div
-                        key={index}
-                        className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] gap-10 py-5"
-                      >
-                        <div>{list.source?.type}</div>
-                        <div className="text-primaryColor">
-                          {list.source?.url}
-                        </div>
-                        <div className="">{list.source?.urlProvider}</div>
+                    {list.details.items.length === 0 ? (
+                      <div className="p-10">
+                        <p className="text-center dark:text-greylight font-bold">
+                          No Data
+                        </p>
                       </div>
-                    ))}
+                    ) : (
+                      list.details.items.map((list, index) => (
+                        <div
+                          key={index}
+                          className="items-center dark:text-textDark grid lg:grid-cols-[1fr_1fr_1fr] max-sm:grid-cols-3 md:grid-cols-3 gap-10 py-5"
+                        >
+                          <div>{list.source?.type}</div>
+                          <div className="max-sm:text-[8px] text-primaryColor">
+                            {list.source?.url}
+                          </div>
+                          <div className="">{list.source?.urlProvider}</div>
+                        </div>
+                      ))
+                    )}
                   </>
                 </Collapsible>
               ))}

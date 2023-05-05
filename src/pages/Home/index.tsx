@@ -12,10 +12,10 @@ const Home: React.FC = () => {
   return (
     <section className="">
       <div className="flex flex-col items-center py-10">
-        <h2 className="text-5xl font-bold dark:text-offwhite">
+        <h2 className="text-5xl max-sm:text-3xl font-bold dark:text-offwhite">
           Test. Analyse . Result
         </h2>
-        <p className="py-8 text-sm text-center w-2/4 dark:text-textDark">
+        <p className="py-8 text-sm text-center w-2/4 max-sm:w-11/12 dark:text-textDark">
           The overall report and the data set are intended to be shared in two
           tables: a table of performance and a table of traffic. All of the
           columns are listed in one column (in the order in which they were
@@ -27,14 +27,14 @@ const Home: React.FC = () => {
           <div className="w-3/4">
             <Input />
           </div>
-          <div className="w-24 mx-4">
+          <div className="w-24 max-sm:w-17 mx-4">
             <Button
               disabled={!isValidate ? true : false}
               onClick={handleSend}
               title="Start test"
               className={
                 isValidate
-                  ? "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
+                  ? "px-4 py-[10px] max-sm:px-2 font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
                   : "bg-textPlaceholder px-4 cursor-not-allowed text-white py-2"
               }
             />
@@ -46,12 +46,12 @@ const Home: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-between py-16">
-        <div className="mr-10 ">
+      <div className="flex justify-between max-sm:flex-col py-16 max-sm:py-12">
+        <div className="mr-10 max-sm:mr-0">
           {" "}
           <ImageCard img={ss1} />
         </div>
-        <div className="mr-10">
+        <div className="mr-10 max-sm:mr-0">
           {" "}
           <ImageCard img={ss2} />
         </div>

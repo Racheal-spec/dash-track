@@ -25,7 +25,7 @@ const Collapsible: React.FC<IProps> = ({
 
   return (
     <div>
-      <div className="grid lg:grid-cols-[1fr_1fr_1fr] sm:grid-cols-[1fr_1fr_1fr]  md:grid-cols-[1fr_1fr_1fr] bg-lightgreenbg dark:bg-darkSmallCardColor dark:bg-opacity-25 text-secondary dark:text-offwhite px-3">
+      <div className="grid text-sm lg:grid-cols-[1fr_1fr_1fr] max-sm:grid-cols-[2fr_1fr_0fr] md:grid-cols-[1fr_1fr_1fr] bg-lightgreenbg dark:bg-darkSmallCardColor dark:bg-opacity-25 text-secondary dark:text-offwhite px-3">
         <div className="font-bold py-4">{title1}</div>
         <div className="font-bold py-4 ">{title2}</div>
         <div className="py-4 flex" onClick={handleOpen}>
@@ -41,7 +41,7 @@ const Collapsible: React.FC<IProps> = ({
       </div>
       <div>
         {isOpen && (
-          <div className="border-b-1 border-opacity-25 border-greylight">
+          <div className="border-b-1 max-sm:text-xs border-opacity-25 border-greylight">
             {children}
           </div>
         )}

@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <section className="bg-white dark:bg-darkbg min-h-[100vh] ">
       <Navbar />
-      <div className="px-28">
+      <div className="px-28 max-sm:px-7 max-md:px-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/report" element={<Report />} />

@@ -11,11 +11,11 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <section className="shadow-sm sticky px-10">
+      <section className="shadow-sm sticky px-10 max-sm:px-2">
         <nav className="py-5">
           <ul className="flex justify-between items-center">
             <li>
-              <p className="logo text-xl text-textHeaderDark dark:text-primaryColor">
+              <p className="logo text-xl max-sm:text-sm text-textHeaderDark dark:text-primaryColor">
                 _ _ _Dashtrack
               </p>
             </li>

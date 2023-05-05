@@ -10,7 +10,7 @@ const BorderCard: React.FC<auditSingleProp> = ({
   let learnLink = description.split("[")[1].split("(")[1];
 
   return (
-    <div className="mr-3">
+    <div className="mr-3 max-sm:mr-0">
       <div className="py-2 px-3 h-36 border  border-primaryColor dark:border-secondary">
         <div>
           <p className="text-sm text-textHeaderDark dark:text-offwhite font-bold">

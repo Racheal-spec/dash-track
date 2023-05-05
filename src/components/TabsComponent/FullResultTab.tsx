@@ -40,7 +40,7 @@ const FullResultTab: React.FC<TabProps> = ({
   return (
     <div>
       <div className="Tabs">
-        <div className="py-7 w-6/12">
+        <div className="py-7 w-6/12  max-sm:w-11/12">
           <h2 className="text-2xl dark:text-offwhite text-textHeaderDark font-bold">
             Performance Breakdown
           </h2>
