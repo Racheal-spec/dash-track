@@ -1,13 +1,10 @@
-import React, { useContext, useState } from "react";
-import Button from "../../uikits/Button";
+import React from "react";
 import { BsSun } from "react-icons/bs";
 import { BsMoon } from "react-icons/bs";
 import { useTheme } from "../../utils/changeTheme";
-import ApiContext from "../../contexts/ApiContext";
 
 const Navbar: React.FC = () => {
   const { handleMode, darkmode } = useTheme();
-  const { isValidate } = useContext(ApiContext);
 
   return (
     <>
@@ -20,6 +17,7 @@ const Navbar: React.FC = () => {
               </p>
             </li>
             <ul className="flex divide-x-2 divide-textHeaderDark dark:divide-smallcardColor divide-opacity-20 dark:divide-opacity-20">
+              <li className="dark:text-textDark text-sm px-2">Switch Mode</li>
               <li
                 className="px-2 cursor-pointer flex justify-center items-center"
                 onClick={handleMode}
@@ -30,7 +28,7 @@ const Navbar: React.FC = () => {
                   <BsSun fontSize="large" color="#ffffff" />
                 )}
               </li>
-              <li className="px-2 text-sm">
+              {/* <li className="px-2 text-sm">
                 <Button
                   className={
                     "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
@@ -41,7 +39,7 @@ const Navbar: React.FC = () => {
               <li className="px-2 text-sm dark:text-offwhite">
                 {" "}
                 <Button outline={true} title="Login" />
-              </li>
+              </li> */}
             </ul>
           </ul>
         </nav>

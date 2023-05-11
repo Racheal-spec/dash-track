@@ -31,7 +31,7 @@ const FullResultTab: React.FC<TabProps> = ({
 
   useEffect(() => {
     loopWithSlice(0, postsPerPage);
-  }, [postsPerPage]);
+  }, [opportunity, postsPerPage]);
 
   const handleShowBtn = () => {
     setPostPerPage((prev) => prev + 3);

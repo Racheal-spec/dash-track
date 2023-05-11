@@ -21,7 +21,7 @@ module.exports = {
 
       greenDark: "#2A6F39",
       urlColor: "#323232",
-
+      redColor: "#D14B4B",
       inputbg: "#9BAA9E",
       lightGreen: "#9FB8A5",
       lineColor: "#778C7B",

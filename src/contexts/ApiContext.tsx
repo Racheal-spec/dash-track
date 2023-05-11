@@ -82,8 +82,13 @@ export const ApiProvider = ({ children }: ChildrenProp) => {
       setProgress(0);
       axios
         .get<typeof data>(API_URL({ url: mainurl }), {
-          onDownloadProgress: (progressEvent: any) => {
-            let progressByBytes = Math.round(progressEvent.progress * 100);
+          onDownloadProgress: (progressEvent) => {
+            let responseLength = progressEvent.event.target.response.length;
+
+            let progressByBytes =
+              Math.round(progressEvent.loaded / responseLength) * 100 ||
+              Math.round(progressEvent.loaded / progressEvent.total!) * 100;
+
             setProgress(progressByBytes);
           },
         })

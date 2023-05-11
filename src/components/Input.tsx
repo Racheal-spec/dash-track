@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from "react";
 import ApiContext from "../contexts/ApiContext";
 
 const Input: React.FC = () => {
-  const { inputText, handleInput, handleSend, isValidate } =
-    useContext(ApiContext);
+  const { inputText, handleInput, handleSend } = useContext(ApiContext);
 
   const onKeyPress = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (event.key === "Enter") {

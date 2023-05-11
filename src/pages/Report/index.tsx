@@ -6,7 +6,7 @@ import ResultPage from "../ResultPage";
 import undraw from "../../assets/undraw.png";
 
 const Report: React.FC = () => {
-  const { progress, data, resError } = useContext(ApiContext);
+  const { progress, resError } = useContext(ApiContext);
 
   return (
     <section className="min-h-[100vh]">
@@ -39,7 +39,9 @@ const Report: React.FC = () => {
             </div>
           </div>
         ) : (
-          <ProgressBar percent={`${progress}%`} />
+          <div className="pt-48">
+            <ProgressBar percent={`${progress}%`} />
+          </div>
         )}
       </div>
     </section>

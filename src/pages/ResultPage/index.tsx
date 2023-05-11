@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import wine from "../../assets/wine.jpg";
-import FaCloudsmith from "react-icons/fa";
+import React, { useContext, useRef } from "react";
 import BorderCard from "../../components/BorderCard";
 import SmallCard from "../../components/SmallCard";
 import ApiContext from "../../contexts/ApiContext";
@@ -9,7 +7,6 @@ import "react-circular-progressbar/dist/styles.css";
 import metricsCalc from "../../utils/metricsCalc";
 import Calc from "../../utils/timeFunction";
 import FullResultTab from "../../components/TabsComponent/FullResultTab";
-import { TabProps } from "../../Types/TabsProp";
 import {
   debugdataAudit,
   opportunityAudit,
@@ -17,19 +14,32 @@ import {
   treemapAudit,
 } from "../../Types/GlobalTypes";
 import { useLocation } from "react-router-dom";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import Button from "../../uikits/Button";
+import TabTable from "../../components/TabsComponent/TabTable";
 
 const ResultPage: React.FC = () => {
+  //=================STATES==================//
   const { data, progress } = useContext(ApiContext);
   const location = useLocation();
+  const pdfRef = useRef<HTMLElement>(null);
   const currentUrl = location.search.substring(5);
-  console.log(data);
 
+  //===============VARIABLES==================//
+  const formattedDate = new Date(data.analysisUTCTimestamp).toLocaleString();
   const auditObjects = data.lighthouseResult.audits;
   const screenshotObj = data.lighthouseResult.audits["screenshot-thumbnails"];
   const metricsobjects =
     data.lighthouseResult.audits?.metrics?.details.items[0];
   let newKeys = Object.keys(auditObjects);
   let newEl = Object.values(auditObjects);
+  let perfScore = data.lighthouseResult.categories.performance.score;
+  let opportunity: opportunityAudit[] = [];
+  let table: tableAudit[] = [];
+  let debugdata: debugdataAudit[] = [];
+  let criticalreq = [];
+  let treemap: treemapAudit[] = [];
 
   const selectedObjects = [
     "cumulative-layout-shift",
@@ -47,12 +57,6 @@ const ResultPage: React.FC = () => {
     })
     .filter((el) => el);
 
-  let opportunity: opportunityAudit[] = [];
-  let table: tableAudit[] = [];
-  let debugdata: debugdataAudit[] = [];
-  let criticalreq = [];
-  let treemap: treemapAudit[] = [];
-  console.log(treemap);
   newEl.forEach((el) => {
     if (el && "details" in el) {
       if (el.details.type === "opportunity") {
@@ -88,7 +92,8 @@ const ResultPage: React.FC = () => {
       }
     }
   });
-  let perfScore = data.lighthouseResult.categories.performance.score;
+
+  //=============STYLES================//
   const style = {
     fontWeight: "bold",
     fontSize: "1.6rem",
@@ -98,8 +103,30 @@ const ResultPage: React.FC = () => {
   const styleNone = {
     display: "none",
   };
+
+  //===================HANDLERS================//
+
+  const handleDownload = async () => {
+    const input = pdfRef.current;
+
+    await html2canvas(input!).then((canvas) => {
+      const pdfData = canvas.toDataURL("image/png");
+
+      const inputWidth = input?.offsetWidth;
+      const inputHeight = input?.offsetHeight;
+      const orientation = inputWidth! >= inputHeight! ? "l" : "p";
+      const pdfFormat = new jsPDF({ orientation, unit: "px", compress: true });
+
+      pdfFormat.internal.pageSize.width = inputWidth ?? 0;
+      pdfFormat.internal.pageSize.height = inputHeight ?? 0;
+
+      pdfFormat.addImage(pdfData, "PNG", 0, 0, inputWidth!, inputHeight!);
+      pdfFormat.save("Dashtrack_result.pdf");
+    });
+  };
+
   return (
-    <section className="">
+    <section className={pdfRef ? "px-10 max-sm:px-0" : ""} ref={pdfRef}>
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
       <div className="py-10">
         <div className="border border-primaryColor dark:border-secondary rounded-lg py-4 text-black dark:text-greylight text-sm">
@@ -117,26 +144,34 @@ const ResultPage: React.FC = () => {
 
             <div className="flex max-sm:mt-6">
               <div className="text-center pr-4 font-bold max-sm:ml-4 ">
-                Date/Time-{" "}
+                Date/Time -
               </div>
-              <div className="pr-4">
-                {data ? data.analysisUTCTimestamp : "---"}
-              </div>
+              <div className="pr-4">{data ? formattedDate : "---"}</div>
             </div>
           </div>
 
-          <div className="flex items-center py-5">
-            <div className="pl-8 max-sm:pl-4 text-center font-bold">
-              FROM -{" "}
+          <div className="flex items-center justify-between max-sm:flex-col">
+            <div className="flex items-center py-5">
+              <div className="pl-8 max-sm:pl-4 text-center font-bold">
+                FROM -{" "}
+              </div>
+              <div className=" pl-4 w-2/5">
+                {data.lighthouseResult
+                  ? data.lighthouseResult.environment.hostUserAgent
+                  : "---"}
+              </div>
             </div>
-            <div className=" pl-4 w-2/5">
-              {data.lighthouseResult
-                ? data.lighthouseResult.environment.hostUserAgent
-                : "---"}
+            <div className="pr-5">
+              <Button
+                outline
+                title="Download Result as PDF"
+                onClick={handleDownload}
+              />
             </div>
           </div>
         </div>
       </div>
+      {/**==============PERFORMANCE SECTION============== */}
       <div className="border border-lineColor border-opacity-25">
         <div className="py-10">
           <h2 className="text-xl text-urlColor dark:text-offwhite pb-2 pl-8 font-bold">
@@ -144,6 +179,7 @@ const ResultPage: React.FC = () => {
           </h2>
           <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
         </div>
+
         <div className="flex px-14 max-sm:px-4  justify-between items-center max-sm:flex-col divide-x-2 max-sm:divide-x-0 text-primaryColor py-10 max-sm:py-3">
           <div className="w-3/12 lg:w-3/12 max-sm:w-6/12 md:w-4/12">
             <CircularProgressbar
@@ -154,12 +190,37 @@ const ResultPage: React.FC = () => {
               backgroundPadding={6}
               styles={buildStyles({
                 textSize: "12px",
-                backgroundColor: "#395107",
+
+                backgroundColor:
+                  perfScore > 0.89
+                    ? "#395107"
+                    : perfScore > 0.49
+                    ? "#615703"
+                    : "#632525",
                 trailColor: "#D8D7D0",
                 textColor: "#fff",
-                pathColor: "#93A372",
+                pathColor:
+                  perfScore > 0.89
+                    ? "#93A372"
+                    : perfScore > 0.49
+                    ? "#B8A603"
+                    : "#D14B4B",
               })}
             />
+            <div className="flex py-5">
+              <div className="flex items-center">
+                <div className="w-4 h-4 bg-greenDark"></div>
+                <div className="text-sm text-textPlaceholder px-3">90-100</div>
+              </div>
+              <div className="flex items-center px-7 ">
+                <div className="w-4 h-4 bg-hoverColor"></div>
+                <div className="text-sm text-textPlaceholder px-3">50-89</div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-4 h-4 bg-redColor"></div>
+                <div className="text-sm text-textPlaceholder px-3">0-49</div>
+              </div>
+            </div>
           </div>
           <div className="w-7/12 lg:w-7/12 md:w-6/12 md:max-h-52 max-sm:py-8 max-sm:w-11/12 max-sm:max-h-64 lg:max-h-96 overflow-hidden">
             <img

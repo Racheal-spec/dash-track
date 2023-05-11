@@ -1,6 +1,3 @@
-import React, { useContext } from "react";
-import ApiContext from "../contexts/ApiContext";
-
 type SmallcardProps = {
   metricstitle: string;
   timing: number | string | JSX.Element;

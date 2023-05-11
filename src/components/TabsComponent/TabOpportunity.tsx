@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
-import ApiContext from "../../contexts/ApiContext";
+import React from "react";
 import { TabProps } from "../../Types/TabsProp";
 import { LearnLink } from "../../utils/globalFunc";
 import Collapsible from "../Collapsible";
 
 const TabOpportunity: React.FC<TabProps> = ({ postsToShow }) => {
-  const { data } = useContext(ApiContext);
-
   return (
     <div className="">
       {postsToShow?.map((list) => (
