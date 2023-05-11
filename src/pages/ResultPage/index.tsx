@@ -38,7 +38,6 @@ const ResultPage: React.FC = () => {
   let opportunity: opportunityAudit[] = [];
   let table: tableAudit[] = [];
   let debugdata: debugdataAudit[] = [];
-  let criticalreq = [];
   let treemap: treemapAudit[] = [];
 
   const selectedObjects = [
