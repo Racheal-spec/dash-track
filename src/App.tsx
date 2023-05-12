@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const { mainurl } = useContext(ApiContext);
 
   return (
-    <section className="bg-white dark:bg-darkbg min-h-[100vh] ">
+    <section className="bg-white dark:bg-darkbg min-h-[100vh-10px] ">
       <Navbar />
       <div className="px-28 max-sm:px-7 max-md:px-10">
         <Routes>

@@ -1,4 +1,3 @@
-import React from "react";
 export const metricsCalc = (val: number) => {
   let secondsVal = val * 0.001;
   if (val < 1) {

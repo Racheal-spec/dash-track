@@ -1,6 +1,7 @@
 import React from "react";
 import { BsSun } from "react-icons/bs";
 import { BsMoon } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import { useTheme } from "../../utils/changeTheme";
 
 const Navbar: React.FC = () => {
@@ -12,9 +13,11 @@ const Navbar: React.FC = () => {
         <nav className="py-5">
           <ul className="flex justify-between items-center">
             <li>
-              <p className="logo text-xl max-sm:text-sm text-textHeaderDark dark:text-primaryColor">
-                _ _ _Dashtrack
-              </p>
+              <Link to="/">
+                <p className="logo text-xl max-sm:text-sm text-textHeaderDark dark:text-primaryColor">
+                  _ _ _Dashtrack
+                </p>
+              </Link>
             </li>
             <ul className="flex divide-x-2 divide-textHeaderDark dark:divide-smallcardColor divide-opacity-20 dark:divide-opacity-20">
               <li className="dark:text-textDark text-sm px-2">Switch Mode</li>

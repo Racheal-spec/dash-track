@@ -13,11 +13,12 @@ import {
   tableAudit,
   treemapAudit,
 } from "../../Types/GlobalTypes";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Button from "../../uikits/Button";
 import TabTable from "../../components/TabsComponent/TabTable";
+import { TbArrowBackUp } from "react-icons/tb";
 
 const ResultPage: React.FC = () => {
   //=================STATES==================//
@@ -123,11 +124,21 @@ const ResultPage: React.FC = () => {
       pdfFormat.save("Dashtrack_result.pdf");
     });
   };
+  let navigate = useNavigate();
+  const handleBackBtn = () => navigate(-1);
 
   return (
     <section className={pdfRef ? "px-10 max-sm:px-0" : ""} ref={pdfRef}>
       <p style={progress === 100 ? styleNone : style}>Preparing Test Result</p>
+
       <div className="py-10">
+        <div
+          onClick={handleBackBtn}
+          className="dark:text-textDark text-secondary cursor-pointer flex justify-end pb-10"
+        >
+          <TbArrowBackUp size="1.5rem" />
+          <div className="text-sm text-textDark px-1">Go Back</div>
+        </div>
         <div className="border border-primaryColor dark:border-secondary rounded-lg py-4 text-black dark:text-greylight text-sm">
           <div className="flex justify-between max-sm:flex-col max-sm:items-start items-center pb-6">
             <div className="flex flex-col">
