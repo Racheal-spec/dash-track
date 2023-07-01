@@ -6,6 +6,7 @@ Dashtrack is a free web performance tool that reports a website's user experienc
 
 - React Js
 - ContextAPI
+- Vite
 - TypeScript
 - Tailwind CSS
 - Pagespeed API
