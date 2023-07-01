@@ -6,7 +6,6 @@ import { useTheme } from "../../utils/changeTheme";
 
 const Navbar: React.FC = () => {
   const { handleMode, darkmode } = useTheme();
-
   return (
     <>
       <section className="shadow-sm sticky px-10 max-sm:px-2">
@@ -14,13 +13,13 @@ const Navbar: React.FC = () => {
           <ul className="flex justify-between items-center">
             <li>
               <Link to="/">
-                <p className="logo text-xl max-sm:text-sm text-textHeaderDark dark:text-primaryColor">
+                <p className="logo text-xl max-sm:text-sm text-primaryDark dark:text-primaryColor">
                   _ _ _Dashtrack
                 </p>
               </Link>
             </li>
-            <ul className="flex divide-x-2 divide-textHeaderDark dark:divide-smallcardColor divide-opacity-20 dark:divide-opacity-20">
-              <li className="dark:text-textDark text-sm px-2">Switch Mode</li>
+            <ul className="flex justify-center items-center divide-x-2 divide-textHeaderDark dark:divide-smallcardColor divide-opacity-20 dark:divide-opacity-20">
+              <li className="dark:text-textDark text-xs">Switch Mode</li>
               <li
                 className="px-2 cursor-pointer flex justify-center items-center"
                 onClick={handleMode}
@@ -31,18 +30,6 @@ const Navbar: React.FC = () => {
                   <BsSun fontSize="large" color="#ffffff" />
                 )}
               </li>
-              {/* <li className="px-2 text-sm">
-                <Button
-                  className={
-                    "px-4 py-[10px] font-semibold hover:animate-ease cursor-pointer hover:bg-secondary hover:text-offwhite hover:scale text-black  bg-primaryColor"
-                  }
-                  title="Sign-up"
-                />
-              </li>
-              <li className="px-2 text-sm dark:text-offwhite">
-                {" "}
-                <Button outline={true} title="Login" />
-              </li> */}
             </ul>
           </ul>
         </nav>

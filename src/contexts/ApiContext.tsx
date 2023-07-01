@@ -6,6 +6,7 @@ import validateUrl from "../utils/validateUrl";
 import { useNavigate } from "react-router-dom";
 import { checkUrl } from "../utils/checkUrl";
 import { ChildrenProp, stateProps } from "../Types/ContextProp";
+import { useTheme } from "../utils/changeTheme";
 
 type ErrorProp = {
   message: string;
@@ -84,11 +85,9 @@ export const ApiProvider = ({ children }: ChildrenProp) => {
         .get<typeof data>(API_URL({ url: mainurl }), {
           onDownloadProgress: (progressEvent) => {
             let responseLength = progressEvent.event.target.response.length;
-
             let progressByBytes =
               Math.round(progressEvent.loaded / responseLength) * 100 ||
               Math.round(progressEvent.loaded / progressEvent.total!) * 100;
-
             setProgress(progressByBytes);
           },
         })

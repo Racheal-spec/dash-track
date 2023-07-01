@@ -41,22 +41,22 @@ const FullResultTab: React.FC<TabProps> = ({
     <div>
       <div className="Tabs">
         <div className="py-7 w-6/12  max-sm:w-11/12">
-          <h2 className="text-2xl dark:text-offwhite text-textHeaderDark font-bold">
+          <h2 className="text-2xl dark:text-offwhite font-bold">
             Performance Breakdown
           </h2>
-          <hr className=" w-28 text-primaryColor dark:text-secondary " />
+
           <div className="py-3">
-            <p className="dark:text-textDark">
+            <p className="dark:text-textDark text-sm">
               Discover what your real users are experiencing and get suggested
               ways to improve your website's performance.
             </p>
-            <p className="dark:text-textDark">
+            <p className="dark:text-textDark text-sm">
               Get first hand solutions and gain 10x more users.
             </p>
           </div>
         </div>
         {/* Tab nav */}
-        <ul className="flex items-centerjustify-center rounded-3xl border border-secondary w-auto">
+        <ul className="flex items-centerjustify-center w-auto">
           <TabItem
             title="Diagnostic"
             id="tab1"

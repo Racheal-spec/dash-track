@@ -139,7 +139,7 @@ const ResultPage: React.FC = () => {
           <TbArrowBackUp size="1.5rem" />
           <div className="text-sm text-textDark px-1">Go Back</div>
         </div>
-        <div className="border border-primaryColor dark:border-secondary rounded-lg py-4 text-black dark:text-greylight text-sm">
+        <div className="border border-secondary dark:border-opacity-50 border-opacity-20 rounded-lg py-4 text-black dark:text-greylight text-sm">
           <div className="flex justify-between max-sm:flex-col max-sm:items-start items-center pb-6">
             <div className="flex flex-col">
               <div className="flex py-2">
@@ -149,7 +149,7 @@ const ResultPage: React.FC = () => {
                 <div className="pl-4 font-bold">{currentUrl}</div>
               </div>
 
-              <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
+              <hr className="ml-8 w-28 text-lineColor dark:text-secondary " />
             </div>
 
             <div className="flex max-sm:mt-6">
@@ -182,60 +182,65 @@ const ResultPage: React.FC = () => {
         </div>
       </div>
       {/**==============PERFORMANCE SECTION============== */}
-      <div className="border border-lineColor border-opacity-25">
+      <div className="border border-secondary  dark:border-opacity-50 border-opacity-20 ">
         <div className="py-10">
           <h2 className="text-xl text-urlColor dark:text-offwhite pb-2 pl-8 font-bold">
             Performance Report
           </h2>
-          <hr className="ml-8 w-28 text-primaryColor dark:text-secondary " />
         </div>
 
-        <div className="flex px-14 max-sm:px-4  justify-between items-center max-sm:flex-col divide-x-2 max-sm:divide-x-0 text-primaryColor py-10 max-sm:py-3">
+        <div className="flex px-14 lg:px-36 max-sm:px-4  justify-between items-center max-sm:flex-col divide-x-2 max-sm:divide-x-0 text-lineColor divide-opacity-25 py-10 max-sm:py-3">
           <div className="w-3/12 lg:w-3/12 max-sm:w-6/12 md:w-4/12">
-            <CircularProgressbar
-              maxValue={1}
-              value={perfScore}
-              background={true}
-              text={`${Math.round(perfScore * 100)}%`}
-              backgroundPadding={6}
-              styles={buildStyles({
-                textSize: "12px",
+            <div className="flex items-center justify-center flex-col">
+              <div>
+                <CircularProgressbar
+                  maxValue={1}
+                  value={perfScore}
+                  background={true}
+                  text={`${Math.round(perfScore * 100)}%`}
+                  backgroundPadding={6}
+                  styles={buildStyles({
+                    textSize: "12px",
 
-                backgroundColor:
-                  perfScore > 0.89
-                    ? "#395107"
-                    : perfScore > 0.49
-                    ? "#615703"
-                    : "#632525",
-                trailColor: "#D8D7D0",
-                textColor: "#fff",
-                pathColor:
-                  perfScore > 0.89
-                    ? "#93A372"
-                    : perfScore > 0.49
-                    ? "#B8A603"
-                    : "#D14B4B",
-              })}
-            />
-            <div className="flex py-5">
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-greenDark"></div>
-                <div className="text-sm text-textPlaceholder px-3">90-100</div>
+                    backgroundColor:
+                      perfScore > 0.89
+                        ? "#5bc0be"
+                        : perfScore > 0.49
+                        ? "#615703"
+                        : "#632525",
+                    trailColor: "#D8D7D0",
+                    textColor: "#fff",
+                    pathColor:
+                      perfScore > 0.89
+                        ? "#93A372"
+                        : perfScore > 0.49
+                        ? "#B8A603"
+                        : "#D14B4B",
+                  })}
+                />
               </div>
-              <div className="flex items-center px-7 ">
-                <div className="w-4 h-4 bg-hoverColor"></div>
-                <div className="text-sm text-textPlaceholder px-3">50-89</div>
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-redColor"></div>
-                <div className="text-sm text-textPlaceholder px-3">0-49</div>
+              <div className="flex py-5">
+                <div className="flex items-center">
+                  <div className="w-4 h-4 bg-primaryDark"></div>
+                  <div className="text-sm text-textPlaceholder px-3">
+                    90-100
+                  </div>
+                </div>
+                <div className="flex items-center px-7 ">
+                  <div className="w-4 h-4 bg-hoverColor"></div>
+                  <div className="text-sm text-textPlaceholder px-3">50-89</div>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-4 h-4 bg-redColor"></div>
+                  <div className="text-sm text-textPlaceholder px-3">0-49</div>
+                </div>
               </div>
             </div>
           </div>
           <div className="w-7/12 lg:w-7/12 md:w-6/12 md:max-h-52 max-sm:py-8 max-sm:w-11/12 max-sm:max-h-64 lg:max-h-96 overflow-hidden">
             <img
               src={data.lighthouseResult.fullPageScreenshot.screenshot.data}
-              className="p-8 bg-white shadow-textPlaceholder shadow-xl "
+              className=" shadow-textPlaceholder shadow-xl "
               alt="dashtrack image result"
             />
           </div>
@@ -247,7 +252,6 @@ const ResultPage: React.FC = () => {
           <p className="text-2xl dark:text-offwhite text-urlColor py-1 font-bold ">
             Metrics
           </p>
-          <hr className=" w-28 text-primaryColor dark:text-secondary " />
         </div>
         <div className="grid sm:gap-2 md: gap-3 lg:gap-0 max-sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 py-7">
           <div>
@@ -258,7 +262,7 @@ const ResultPage: React.FC = () => {
                 "firstContentfulPaint" in metricsobjects &&
                 metricsobjects?.firstContentfulPaint ? (
                   metricsCalc(metricsobjects?.firstContentfulPaint) < "1.8s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects?.firstContentfulPaint)}
                     </p>
                   ) : metricsCalc(metricsobjects.firstContentfulPaint) <
@@ -287,7 +291,7 @@ const ResultPage: React.FC = () => {
                 "interactive" in metricsobjects &&
                 metricsobjects?.interactive ? (
                   metricsCalc(metricsobjects.interactive) < "3.8s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects.interactive)}
                     </p>
                   ) : metricsCalc(metricsobjects.interactive) < "7.3s" ? (
@@ -314,7 +318,7 @@ const ResultPage: React.FC = () => {
                 "speedIndex" in metricsobjects &&
                 metricsobjects?.speedIndex ? (
                   metricsCalc(metricsobjects.speedIndex) < "4.3s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects.speedIndex)}
                     </p>
                   ) : metricsCalc(metricsobjects.speedIndex) < "5.8s" ? (
@@ -342,7 +346,7 @@ const ResultPage: React.FC = () => {
                 "totalBlockingTime" in metricsobjects &&
                 metricsobjects?.totalBlockingTime ? (
                   metricsCalc(metricsobjects.totalBlockingTime) <= "0.15s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects.totalBlockingTime)}
                     </p>
                   ) : metricsCalc(metricsobjects.totalBlockingTime) <
@@ -371,7 +375,7 @@ const ResultPage: React.FC = () => {
                 metricsobjects?.largestContentfulPaint ? (
                   metricsCalc(metricsobjects.largestContentfulPaint) <
                   "2.5s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects.largestContentfulPaint)}
                     </p>
                   ) : metricsCalc(metricsobjects.largestContentfulPaint) <
@@ -401,7 +405,7 @@ const ResultPage: React.FC = () => {
                 metricsobjects?.totalCumulativeLayoutShift ? (
                   metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
                   "0.10s" ? (
-                    <p style={{ color: "#99DF04" }}>
+                    <p style={{ color: "#5bc0be" }}>
                       {metricsCalc(metricsobjects.totalCumulativeLayoutShift)}
                     </p>
                   ) : metricsCalc(metricsobjects.totalCumulativeLayoutShift) <
@@ -437,9 +441,9 @@ const ResultPage: React.FC = () => {
         </div>
       </section>
       {/**=================Image filmstrip section============== */}
-      <section className="my-10 border border-primaryColor dark:border-secondary">
+      <section className="my-10 border border-lineColor border-opacity-25 dark:border-secondary">
         <div className="bg-smallcardColor  dark:bg-darkSmallCardColor dark:bg-opacity-25 py-5 px-2 mb-5">
-          <h3 className="font-bold text-xl text-lineColor">
+          <h3 className="font-bold dark:text-offwhite text-xl ">
             Visual Loading Screen
           </h3>
           <p className="py-2 dark:text-greylight">

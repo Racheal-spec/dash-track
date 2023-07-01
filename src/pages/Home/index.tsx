@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Button from "../../uikits/Button";
 import ImageCard from "../../components/ImageCard";
 import Input from "../../components/Input";
@@ -6,13 +6,23 @@ import ApiContext from "../../contexts/ApiContext";
 import ss1 from "../../assets/ss1.png";
 import ss2 from "../../assets/ss2.png";
 import ss3 from "../../assets/ss3.png";
+import ss4 from "../../assets/ss4.png";
+import ss5 from "../../assets/ss5.png";
+import ss6 from "../../assets/ss6.png";
+import { useTheme } from "../../utils/changeTheme";
 
 const Home: React.FC = () => {
   const { handleSend, isValidate } = useContext(ApiContext);
+  const { handleMode, darkmode } = useTheme();
+  console.log(darkmode);
+
+  // useEffect(() => {
+  //   handleMode();
+  // }, [darkmode]);
   return (
-    <section className="">
+    <section className="py-28">
       <div className="flex flex-col items-center py-10">
-        <h2 className="text-5xl max-sm:text-3xl font-bold dark:text-offwhite">
+        <h2 className="text-5xl max-sm:text-3xl font-bold text-darkbg dark:text-offwhite">
           Test. Analyse . Result
         </h2>
         <p className="py-8 text-sm text-center w-2/4 max-sm:w-11/12 dark:text-textDark">
@@ -49,15 +59,15 @@ const Home: React.FC = () => {
       <div className="flex justify-between max-sm:flex-col py-16 max-sm:py-12">
         <div className="mr-10 max-sm:mr-0">
           {" "}
-          <ImageCard img={ss1} />
+          <ImageCard img={ss4} />
         </div>
         <div className="mr-10 max-sm:mr-0">
           {" "}
-          <ImageCard img={ss2} />
+          <ImageCard img={ss5} />
         </div>
         <div className="">
           {" "}
-          <ImageCard img={ss3} />
+          <ImageCard img={ss6} />
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ const WaitingAnimation = () => {
     >
       <circle
         fill="none"
-        stroke="#395400"
+        stroke="#5bc0be"
         strokeWidth="6"
         strokeMiterlimit="15"
         strokeDasharray="14.2472,14.2472"
@@ -33,7 +33,7 @@ const WaitingAnimation = () => {
       </circle>
       <circle
         fill="none"
-        stroke="#99DF04"
+        stroke="#6fffe9"
         strokeWidth="1"
         strokeMiterlimit="10"
         strokeDasharray="10,10"
@@ -51,7 +51,7 @@ const WaitingAnimation = () => {
           repeatCount="indefinite"
         />
       </circle>
-      <g fill="#395400">
+      <g fill="#5bc0be">
         <rect x="30" y="35" width="5" height="30">
           <animateTransform
             attributeName="transform"
