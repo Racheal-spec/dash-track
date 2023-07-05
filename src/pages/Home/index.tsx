@@ -14,30 +14,27 @@ import { useTheme } from "../../utils/changeTheme";
 const Home: React.FC = () => {
   const { handleSend, isValidate } = useContext(ApiContext);
   const { handleMode, darkmode } = useTheme();
-  console.log(darkmode);
 
-  // useEffect(() => {
-  //   handleMode();
-  // }, [darkmode]);
   return (
-    <section className="py-28">
+    <section className="py-16">
       <div className="flex flex-col items-center py-10">
-        <h2 className="text-5xl max-sm:text-3xl font-bold text-darkbg dark:text-offwhite">
+        <h2 className="text-5xl max-sm:text-2xl font-bold text-darkbg dark:text-offwhite">
           Test. Analyse . Result
         </h2>
-        <p className="py-8 text-sm text-center w-2/4 max-sm:w-11/12 dark:text-textDark">
-          The overall report and the data set are intended to be shared in two
-          tables: a table of performance and a table of traffic. All of the
-          columns are listed in one column (in the order in which they were
-          first determined).
+        <p className="py-8 text-sm text-center lg:w-3/5 md:w-full max-sm:w-11/12 dark:text-textDark">
+          Boost your website's performance with DashTrack, the ultimate
+          monitoring tool. Gain real-time insights, actionable data, and
+          proactive alerts to optimize every aspect of your site. Track key
+          metrics, identify bottlenecks, and stay one step ahead of the
+          competition.
         </p>
       </div>
       <div className="flex flex-col">
-        <div className="flex items-center justify-center">
-          <div className="w-3/4">
+        <div className="flex items-center justify-center max-sm:flex-col">
+          <div className="lg:w-3/4 md:w-3/4">
             <Input />
           </div>
-          <div className="w-24 max-sm:w-17 mx-4">
+          <div className="lg:w-24 md:w-24 max-sm:w-17 mx-4 max-sm:my-2">
             <Button
               disabled={!isValidate ? true : false}
               onClick={handleSend}
@@ -61,7 +58,7 @@ const Home: React.FC = () => {
           {" "}
           <ImageCard img={ss4} />
         </div>
-        <div className="mr-10 max-sm:mr-0">
+        <div className="mr-10 max-sm:mr-0 lg:block sm:block md:hidden">
           {" "}
           <ImageCard img={ss5} />
         </div>

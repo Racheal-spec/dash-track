@@ -17,14 +17,14 @@ const Button = ({ title, onClick, disabled, className, outline }: Btntitle) => {
           onClick={onClick}
           disabled={!isValidate}
           className={
-            "font-semibold px-4 py-[8px] border hover:animate-ease cursor-pointer hover:text-secondary hover:scale"
+            "font-semibold max-sm:w-72  px-4 py-[8px] border hover:animate-ease cursor-pointer hover:text-secondary hover:scale"
           }
         >
           <p className="text-sm">{title}</p>
         </button>
       ) : (
         <button onClick={onClick} disabled={disabled} className={className}>
-          <p className="text-sm">{title}</p>
+          <p className="max-sm:w-72 text-sm">{title}</p>
         </button>
       )}
     </div>

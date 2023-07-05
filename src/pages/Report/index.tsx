@@ -28,7 +28,7 @@ const Report: React.FC = () => {
           </>
         ) : progress === 0 ? (
           <div className="flex items-center flex-col pt-48">
-            <div className="w-32">
+            <div className="w-36">
               <WaitingAnimation />
             </div>
             <div className="text-center py-4">

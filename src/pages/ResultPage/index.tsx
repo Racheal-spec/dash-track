@@ -116,10 +116,8 @@ const ResultPage: React.FC = () => {
       const inputHeight = input?.offsetHeight;
       const orientation = inputWidth! >= inputHeight! ? "l" : "p";
       const pdfFormat = new jsPDF({ orientation, unit: "px", compress: true });
-
       pdfFormat.internal.pageSize.width = inputWidth ?? 0;
       pdfFormat.internal.pageSize.height = inputHeight ?? 0;
-
       pdfFormat.addImage(pdfData, "PNG", 0, 0, inputWidth!, inputHeight!);
       pdfFormat.save("Dashtrack_result.pdf");
     });
@@ -192,7 +190,7 @@ const ResultPage: React.FC = () => {
         <div className="flex px-14 lg:px-36 max-sm:px-4  justify-between items-center max-sm:flex-col divide-x-2 max-sm:divide-x-0 text-lineColor divide-opacity-25 py-10 max-sm:py-3">
           <div className="w-3/12 lg:w-3/12 max-sm:w-6/12 md:w-4/12">
             <div className="flex items-center justify-center flex-col">
-              <div>
+              <div className="font-bold">
                 <CircularProgressbar
                   maxValue={1}
                   value={perfScore}
@@ -201,7 +199,6 @@ const ResultPage: React.FC = () => {
                   backgroundPadding={6}
                   styles={buildStyles({
                     textSize: "12px",
-
                     backgroundColor:
                       perfScore > 0.89
                         ? "#5bc0be"

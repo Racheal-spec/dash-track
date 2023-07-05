@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
           <ul className="flex justify-between items-center">
             <li>
               <Link to="/">
-                <p className="logo text-xl max-sm:text-sm text-primaryDark dark:text-primaryColor">
+                <p className="logo text-2xl max-sm:text-xl text-primaryDark dark:text-primaryColor">
                   _ _ _Dashtrack
                 </p>
               </Link>
